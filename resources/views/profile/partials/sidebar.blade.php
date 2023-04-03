@@ -34,7 +34,7 @@
 						<x-user-list url="/doctor/patient-list"
 												 user-type="Patient List"/>
 					@endif
-					<li>
+					<li class="{{ auth()->user ()->acc_type == "admin" ? 'hidden' : '' }}">
 						<a href="/create/invoice">
 							<i class="fa fa-solid fa-money"></i> <span>Create invoice</span>
 						</a>
@@ -42,7 +42,7 @@
 					<li>
 						<a href="#"><i class="fa fa-angle-right text-red"></i> <span>Mailbox</span></a>
 						<ul class="treeview-menu">
-							@foreach($doctors as $doctor)
+							@foreach(\App\Models\User::all() as $doctor)
 								@if($doctor['acc_type'] == 'Doctor')
 									<li class="treeview {{ auth()->user()->acc_type == 'Doctor' ? 'hidden' : '' }}">
 										<a href="{{ url('/admin/mailbox/'. $doctor->name) }}">

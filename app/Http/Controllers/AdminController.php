@@ -3,6 +3,7 @@
 	namespace App\Http\Controllers;
 	
 	use App\Models\Appointment;
+	use App\Models\Invoice;
 	use App\Models\Temp;
 	use App\Models\Treatment;
 	use App\Models\User;
@@ -25,8 +26,7 @@
 		public function invoiceView ( Request $request )
 		{
 			$treatments = Treatment ::all ();
-			$doctors = User ::all ();
-			$dName = Auth ::user () -> name;
+//			$doctors = User ::all ();
 			$items = Temp ::all ();
 			$mytime = Carbon ::now ();
 			$patients = Appointment ::where ( 'appointedDoctor' , Auth ::user () -> name ) -> get ();
@@ -37,24 +37,22 @@
 			// $int = array_map('intval', $total);
 			// dd($amount);
 			return view ( 'pages.create-invoice' , [
-				'doctors' => $doctors ,
+//				'doctors' => $doctors ,
 				'patients' => $patients ,
 				'treatments' => $treatments ,
 				'items' => $items ,
 				'total' => $amount ,
 				'date' => $mytime -> toDateTimeString () ,
 				'countMail' => $countMail ,
-				'dName' => $dName ,
 			] );
 		}
 		
-		public function generateReceipt ( Request $request )
+		public function generateReceipt ( Request $request , $doctor )
 		{
-			// dd($request->get('curdate'));
 			DB ::table ( 'invoices' ) -> insert ( [
 				'patient' => $request -> get ( 'patient_name' ) ,
 				'date' => $request -> get ( 'curdate' ) ,
-				'doctor' => $request -> get ( 'doctor_name' ) ,
+				'doctor' => $doctor ,
 				'amount' => $request -> get ( 'total' ) ,
 			] );
 			self ::clearFromTable ();
@@ -261,8 +259,9 @@
 		{
 			$countMail = Appointment ::where ( 'appointedDoctor' , null ) -> count ();
 			$doctors = User ::all ();
-			
-			return view ( 'pages.edit-doctor' , compact ( 'countMail' , 'user' , 'doctors' ) );
+			$invoices = Invoice::where('doctor', $user->name)->get();
+//			dd($user);
+			return view ( 'pages.edit-doctor' , compact ( 'countMail' , 'user' , 'doctors', 'invoices' ) );
 		}
 		
 		public function search ()

@@ -27,7 +27,6 @@
 		return view ( 'WIP' );
 	} );
 	
-	
 	Route ::controller ( RequestFormController::class ) -> group ( function () {
 		Route ::get ( '/appointment' , RequestFormController::class );
 		Route ::post ( '/appointment' , 'store' );
@@ -68,7 +67,7 @@
 		Route ::get ( '/create/invoice' , 'invoiceView' );
 		Route ::get ( '/create/invoice/add' , 'addToTempTable' );
 		Route ::get ( '/create/invoice/clear' , 'clearFromTable' );
-		Route ::post ( '/create/invoice/generate' , 'generateReceipt' );
+		Route ::post ( '/create/invoice/generate/{doctor}' , 'generateReceipt' );
 	} );
 	
 	Route ::controller ( UserController::class ) -> group ( function () {

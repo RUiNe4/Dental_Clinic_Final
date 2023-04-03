@@ -9,4 +9,12 @@
 	<a href="/admin/doctor-list/{{ $user->id }}/password">
 		<i class="fa fa-solid fa-pencil">Change Password</i>
 	</a>
+ @foreach($invoices as $invoice)
+     {{ $invoice->doctor }}
+     {{ $invoice->id }}
+     {{ $invoice->amount }}
+     {{ $invoice->patient }}
+		 <br>
+ @endforeach
+ 
 @endsection

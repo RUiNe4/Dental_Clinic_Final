@@ -12,7 +12,7 @@
       function hideURLbar() {
           window.scrollTo(0, 1);
       } </script>
-{{--	flowbite css--}}
+	{{--	flowbite css--}}
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.css" rel="stylesheet"/>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/datepicker.min.js"></script>
 	<!-- Bootstrap Core CSS -->
@@ -38,9 +38,6 @@
 				rel="stylesheet">
 	<!--//webfonts-->
 	
-	<!-- chart -->
-	<script src="{{ asset('js/Chart.js') }}"></script>
-	<!-- //chart -->
 	
 	<!-- Metis Menu -->
 	<script src="{{ asset ('js/metisMenu.min.js') }}"></script>
@@ -53,45 +50,7 @@
           height: 295px;
       }
 	</style>
-	<!--pie-chart --><!-- index page sales reviews visitors pie chart -->
-	<script src="{{ asset('js/pie-chart.js') }}" type="text/javascript"></script>
-	<script type="text/javascript">
-      $(document).ready(function () {
-          $('#demo-pie-1').pieChart({
-              barColor: '#2dde98',
-              trackColor: '#eee',
-              lineCap: 'round',
-              lineWidth: 8,
-              onStep: function (from, to, percent) {
-                  $(this.element).find('.pie-value').text(Math.round(percent) + '%');
-              }
-          });
-
-          $('#demo-pie-2').pieChart({
-              barColor: '#8e43e7',
-              trackColor: '#eee',
-              lineCap: 'butt',
-              lineWidth: 8,
-              onStep: function (from, to, percent) {
-                  $(this.element).find('.pie-value').text(Math.round(percent) + '%');
-              }
-          });
-
-          $('#demo-pie-3').pieChart({
-              barColor: '#ffc168',
-              trackColor: '#eee',
-              lineCap: 'square',
-              lineWidth: 8,
-              onStep: function (from, to, percent) {
-                  $(this.element).find('.pie-value').text(Math.round(percent) + '%');
-              }
-          });
-
-
-      });
 	
-	</script>
-	<!-- //pie-chart --><!-- index page sales reviews visitors pie chart -->
 	
 	<!-- requried-jsfiles-for owl -->
 	<link href="{{ asset('css/owl.carousel.css') }}" rel="stylesheet">

@@ -8,7 +8,7 @@
 				Log in
 			</h2>
 		</header>
-
+		
 		<form action="/login/authenticate" method="POST">
 			@csrf
 			<div class="mb-6">
@@ -20,9 +20,9 @@
 					{{ $message }}
 				</p>
 				@enderror
-
+			
 			</div>
-
+			
 			<div class="mb-6">
 				<label for="password" class="inline-block text-lg mb-2">
 					Password
@@ -34,22 +34,20 @@
 				{{ $message }}
 			</p>
 			@enderror
-
-
+			
 			<div class="mb-6">
 				<button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
 					Sign In
 				</button>
 			</div>
-
-
+			
 			<div class="mt-8">
 				<p>
 					Don't have an account?
 					<a href="/register" class="text-laravel">Register</a>
 				</p>
 			</div>
-            <div class="mt-8">
+			<div class="mt-8">
 				<p>
 					<a href="/" class="text-laravel"><i class="fa fa-solid fa-arrow-left">Back to homepage</i></a>
 				</p>

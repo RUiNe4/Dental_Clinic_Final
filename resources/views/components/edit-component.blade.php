@@ -1,4 +1,4 @@
-<div class="{{ $patient->status == "Approve" ? "hidden" : "" }} text-sm flex">
+<div class="text-sm flex">
 	<div class="mr-1">
 		<form method="POST" action="/admin/update/{{ $patient->id }}">
 			@csrf

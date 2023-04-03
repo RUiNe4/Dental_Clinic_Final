@@ -1,30 +1,28 @@
 @extends('layouts.admin')
 @section('content')
+	@if(auth ()->user ()->acc_type=='Doctor')
 	<form action="/create/invoice/clear">
 		<button
 			class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
 			Clear
 		</button>
 	</form>
-	<form action="/create/invoice/generate" method="POST" enctype="multipart/form-data">
+	<form action="/create/invoice/generate/{{ auth()->user ()->name }}" method="POST" enctype="multipart/form-data">
 		@csrf
 		<label>Date: </label>
 		<input type="text" name="curdate" value="{{ $date }}"/>
 		<div class="flex flex-row items-center">
 			<label for="doctor_name" class="block mb-2 text-sm font-medium text-gray-900 pt-4 mr-5">Doctor:</label>
-			@if(auth ()->user ()->acc_type == 'admin')
-				<select id="doctor_name" name="doctor_name"
-								class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 mt-2 mr-5">
+			<select id="doctor_name" name="doctor_name" {{ auth ()->user ()->acc_type == 'admin' ? '' : 'disabled' }}
+			class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 mt-2 mr-5">
+				@if(auth ()->user ()->acc_type == 'admin')
 					@foreach($doctors as $doctor)
 						<option value="{{ $doctor->name }}">{{ $doctor->name }}</option>
 					@endforeach
-				</select>
-			@else
-				<span
-					class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 mt-2 mr-5">
-						{{ $dName }}
-				</span>
-			@endif
+				@else
+					<option value="{{ auth ()->user ()->name }}">{{ auth ()->user ()->name }}</option>
+				@endif
+			</select>
 			<label for="patient_name" class="block mb-2 text-sm font-medium text-gray-900 pt-4 mr-5">Patient:</label>
 			<select id="patient_name" name="patient_name"
 							class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 mt-2 mr-5">
@@ -132,5 +130,7 @@
 					 disabled/>
 		<label for="" style="margin-top:50px;">$</label>
 	</div>
-
+	@else
+{{--		List Doctors Treatment History--}}
+@endif
 @endsection
