@@ -4,10 +4,13 @@
 	
 	
 	use App\Models\Appointment;
+	use App\Models\Invoice;
+	use App\Models\invoice_items;
 	use App\Models\Treatment;
 	use App\Models\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\Auth;
+	use Illuminate\Support\Facades\DB;
 	use Illuminate\Support\Facades\Hash;
 	use Illuminate\Validation\Rule;
 	
@@ -105,9 +108,15 @@
 				'appointedDoctor' => auth () -> user () -> name ,
 				'status' => 'Approve' ,
 			] ) -> paginate ( 6 );
-//			dd($appointment->treatment_id);
-//			dd($treatments);
-			return view ( 'pages.patient-info' , compact ( 'patients' , 'appointment' , 'doctors' ) );
+			$invoices = Invoice ::where ( 'patient' , $appointment -> firstName . ' ' . $appointment -> lastName ) -> orderby ( 'id' , 'desc' ) -> get ();
+			$invoice_items = array ();
+			
+			foreach ( $invoices as $invoice ) {
+				$invoice_items[] = invoice_items ::where ( 'invoice_id' , $invoice -> id )
+					-> get ();
+			}
+			
+			return view ( 'pages.patient-info' , compact ( 'invoice_items' , 'patients' , 'appointment' , 'doctors' ) );
 		}
 		
 		public function myPatients ( Auth $auth )

@@ -52,10 +52,39 @@
 			<div class="text-white">
 			</div>
 		</div>
+		
 		<div class="w-3/12 bg-[#E0E0E0] rounded-2xl mx-2 p-5">
 			<h1 class="text-center">Past Treatments</h1>
 			<hr class="border-black">
-			
+			@for($i = 0; $i < count($invoice_items);$i++)
+				id {{  $invoice_items[$i][0]->invoice_id }}
+				<hr class="border border-black">
+				@for($j =0 ;$j<count($invoice_items[$i]); $j++)
+					<div>
+						treatment
+						{{  $invoice_items[$i][$j]->treatment_id }}
+					</div>
+					<div>
+						treatment name
+						{{  $invoice_items[$i][$j]->treatment_name }}
+					</div>
+					<div>
+						qty
+						{{  $invoice_items[$i][$j]->qty }}
+					</div>
+					<div>
+						price
+						{{  $invoice_items[$i][$j]->price }}
+					</div>
+					<div>
+						amount
+						{{  $invoice_items[$i][$j]->amount }}
+					</div>
+					<br>
+				@endfor
+				<hr class="border border-black">
+			@endfor
+		
 		</div>
 		
 		<div
@@ -70,4 +99,5 @@
 		</div>
 	
 	</div>
+
 @endsection
