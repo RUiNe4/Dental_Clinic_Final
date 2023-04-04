@@ -40,7 +40,7 @@
 			</div>
 			<input type="text" name="total" value="{{ $total }}" hidden>
 		</form>
-		
+
 		<div>
 			<label for="treatment" class="block mb-2 text-sm font-medium text-gray-900">Enter Item:</label>
 			<form action="/create/invoice/add">
@@ -62,7 +62,7 @@
 				</button>
 			</form>
 		</div>
-		
+
 		<div class="relative overflow-x-auto">
 			<table class="w-full text-sm text-left text-gray-500">
 				<thead class="text-xs text-gray-700 uppercase">
@@ -94,7 +94,7 @@
 							<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 								{{ $item->treatment_name }}
 							</th>
-							
+
 							<td class="px-6 py-4">
 								{{ $item->price }}
 							</td>
@@ -133,6 +133,8 @@
 			<label for="" style="margin-top:50px;">$</label>
 		</div>
 	@else
+
+@endif
 		{{--		List Doctors Treatment History--}}
 	@endif
 @endsection

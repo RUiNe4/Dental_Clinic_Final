@@ -3,7 +3,8 @@
 	use App\Http\Controllers\AdminController;
 	use App\Http\Controllers\MailController;
 	use App\Http\Controllers\OurDoctorController;
-	use App\Http\Controllers\RequestFormController;
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\RequestFormController;
 	use App\Http\Controllers\UserController;
 	use App\Models\Appointment;
 	use App\Models\User;
@@ -14,6 +15,8 @@
 	Route ::get ( '/' , function () {
 		return view ( 'welcome' );
 	} );
+
+    Route::get('/generatePDF', [PDFController::class, 'generatePDF']);
 
 	Route ::get ( '/service' , function () {
 		return view ( 'WIP' );
@@ -39,7 +42,7 @@
 	} );
 
 	Route ::controller ( AdminController::class ) -> group ( function () {
-		// invoke
+        // invoke
 		Route ::get ( '/admin' , AdminController::class ) -> name ( 'admin' );
 		// admin home
 		Route ::get ( '/admin/doctor-list' , 'index' );
