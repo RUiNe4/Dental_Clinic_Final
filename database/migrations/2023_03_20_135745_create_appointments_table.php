@@ -21,6 +21,7 @@
                 $table->string('email');
                 $table->string('appointedDoctor')->nullable();
                 $table->string('status')->default('PENDING');
+                $table->string('payment')->default('PENDING');
                 $table->date('birthday')->nullable();
                 $table->date('appointmentDate')->nullable();
                 $table->text('message')->nullable();

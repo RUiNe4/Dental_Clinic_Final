@@ -7,6 +7,7 @@
 			Clear
 		</button>
 	</form>
+
 	<form action="/create/invoice/generate/{{ auth()->user ()->name }}" method="POST" enctype="multipart/form-data">
 		@csrf
 		<label>Date: </label>
@@ -27,22 +28,27 @@
 			<select id="patient_name" name="patient_name"
 							class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 mt-2 mr-5">
 				@foreach ($patients as $patient)
+
 					<option
 						value="{{ $patient->firstName . ' ' . $patient->lastName }}">{{ $patient->firstName . ' ' . $patient->lastName }}</option>
 				@endforeach
 			</select>
-			<button
-				class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-3">
-				Generate Receipt
-			</button>
+            <button
+                class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-3"
+                name="gen_res"
+                value="1"
+                onclick="window.print()"
+                >
+                Generate Receipt
+            </button>
 		</div>
-		<input type="text" name="total" value="{{ $total }}" hidden>
+		<input type="text" name="total"  value="{{ $total }}" hidden>
 	</form>
-	
+
 	<div>
 		<label for="treatment" class="block mb-2 text-sm font-medium text-gray-900">Enter Item:</label>
 		<form action="/create/invoice/add">
-			
+
 			<select id="treatment" name="treatment"
 							class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5">
 				@foreach ($treatments as $treatment)
@@ -61,7 +67,7 @@
 			</button>
 		</form>
 	</div>
-	
+
 	<div class="relative overflow-x-auto">
 		<table class="w-full text-sm text-left text-gray-500">
 			<thead class="text-xs text-gray-700 uppercase">
@@ -93,7 +99,7 @@
 						<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 							{{ $item->treatment_name }}
 						</th>
-						
+
 						<td class="px-6 py-4">
 							{{ $item->price }}
 						</td>
@@ -126,11 +132,11 @@
 	</div>
 	<div class="flex items-center">
 		<label style="margin-top:50px; margin-right:20px;" for="">Total: </label>
-		<input type="text" value="{{$total}}" style="background-color: white; text-align:start; width:50px;margin-top:50px;"
-					 disabled/>
+		<input type="text" value="{{$total}}" style=" background-color: white; text-align:right;width:150px;margin-top:50px;"
+				 disabled/>
 		<label for="" style="margin-top:50px;">$</label>
 	</div>
 	@else
-{{--		List Doctors Treatment History--}}
+
 @endif
 @endsection
