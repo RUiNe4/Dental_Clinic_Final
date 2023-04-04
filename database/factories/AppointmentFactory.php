@@ -26,6 +26,8 @@ class AppointmentFactory extends Factory
             'appointmentDate' => fake()->date(),
             'appointedDoctor' => 'Sunchhay Khoun',
             'status' => 'PENDING',
+						'paid' => false,
+//						'treatment_id' => fake()->numberBetween (1, 5),
             'message' => fake()->text(),
         ];
     }

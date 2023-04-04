@@ -1,5 +1,5 @@
 <?php
-	
+
 	use App\Http\Controllers\AdminController;
 	use App\Http\Controllers\MailController;
 	use App\Http\Controllers\OurDoctorController;
@@ -10,34 +10,34 @@
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\Route;
 	use Illuminate\Support\Facades\Session;
-	
+
 	Route ::get ( '/' , function () {
 		return view ( 'welcome' );
 	} );
-	
+
 	Route ::get ( '/service' , function () {
 		return view ( 'WIP' );
 	} );
-	
+
 	Route ::get ( '/contact' , function () {
 		return view ( 'WIP' );
 	} );
-	
+
 	Route ::get ( '/community' , function () {
 		return view ( 'WIP' );
 	} );
-	
+
 	Route ::controller ( RequestFormController::class ) -> group ( function () {
 		Route ::get ( '/appointment' , RequestFormController::class );
 		Route ::post ( '/appointment' , 'store' );
 	} );
-	
+
 	Route ::controller ( OurDoctorController::class ) -> group ( function () {
 		Route ::get ( '/our-doctor' , OurDoctorController::class );
 		Route ::get ( '/our-doctor/{user}' , 'show' );
 		Route ::post ( '/our-doctor/{user}' , 'store' );
 	} );
-	
+
 	Route ::controller ( AdminController::class ) -> group ( function () {
 		// invoke
 		Route ::get ( '/admin' , AdminController::class ) -> name ( 'admin' );
@@ -57,6 +57,7 @@
 		// decline appointment
 		Route ::delete ( '/admin/mailbox/{appointment}' , 'destroyAppointment' );
 //		edit patient
+//      update appointment
 		Route ::patch ( '/admin/update/{appointment}' , 'update' );
 		Route ::get ( '/admin/treatment-list' , 'showTreatmentList' );
 		Route ::delete ( '/admin/treatment-list/{treatment}' , 'destroyTreatment' );
@@ -69,7 +70,7 @@
 		Route ::get ( '/create/invoice/clear' , 'clearFromTable' );
 		Route ::post ( '/create/invoice/generate/{doctor}' , 'generateReceipt' );
 	} );
-	
+
 	Route ::controller ( UserController::class ) -> group ( function () {
 		//show register view
 		Route ::get ( '/register' , 'register' );
@@ -80,15 +81,15 @@
 		Route ::post ( '/login/authenticate' , 'authenticate' );
 		//logout
 		Route ::post ( '/logout' , 'logout' );
-		
+
 		Route ::get ( '/doctor' , 'index' );
 		//Show patients according to doctor
 		Route ::get ( '/doctor/patient-list' , 'myPatients' );
 		Route ::get ( '/doctor/mailbox' , 'myMail' );
 		Route ::get ( '/doctor/mailbox/{appointment}' , 'patientInfo' );
-		
+
 		Route ::get ( '/doctor/search' , 'search' );
-		
+
 		Route ::get ( '/appointment/{appointment}' , 'patientInfo' );
 		Route ::get ( '/appointment/{appointment}/change' , 'change' );
 //		Route ::fallback ( function () {

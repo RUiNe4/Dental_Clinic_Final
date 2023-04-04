@@ -19,6 +19,7 @@ return new class extends Migration
             $table->double('amount');
             $table->string('date');
             $table->string('doctor');
+						$table->string('treatment_list');
             $table->timestamps();
         });
     }

@@ -2,7 +2,9 @@
 	
 	namespace App\Http\Controllers;
 	
+	
 	use App\Models\Appointment;
+	use App\Models\Treatment;
 	use App\Models\User;
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\Auth;
@@ -16,19 +18,17 @@
 			if ( Auth ::check () ) {
 				if ( auth () -> user () -> acc_type == 'Doctor' ) {
 					// The user is logged in...
+//					$patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
 					$doctors = User ::all ();
-					$patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
 					$countMail = count ( Appointment ::where ( 'appointedDoctor' , null ) -> get () );
 					
-					return view ( 'layouts.admin' , compact ( 'patients' , 'countMail' , 'doctors' ) );
+					return view ( 'layouts.admin' , compact ( 'countMail' , 'doctors' ) );
 				} else {
 					auth ::logout ();
-					
 					return view ( 'pages.login' );
 				}
 			} else {
 				auth ::logout ();
-				
 				return view ( 'pages.login' );
 			}
 		}
@@ -100,15 +100,14 @@
 		
 		public function patientInfo ( Appointment $appointment )
 		{
-			$countMail = count ( Appointment ::where ( 'appointedDoctor' , null ) -> get () );
 			$doctors = User ::latest () -> paginate ( 6 );
-			$allPatients = Appointment ::all ();
 			$patients = Appointment ::where ( [
 				'appointedDoctor' => auth () -> user () -> name ,
 				'status' => 'Approve' ,
 			] ) -> paginate ( 6 );
-			
-			return view ( 'pages.patient-info' , compact ( 'allPatients' , 'patients' , 'countMail' , 'appointment' , 'doctors' ) );
+//			dd($appointment->treatment_id);
+//			dd($treatments);
+			return view ( 'pages.patient-info' , compact ( 'patients' , 'appointment' , 'doctors' ) );
 		}
 		
 		public function myPatients ( Auth $auth )
@@ -148,7 +147,6 @@
 		{
 			switch ( $request[ 'res' ] ) {
 				case 'reschedule':
-					
 					$appointment -> appointmentDate = $request[ 'apntDate' ];
 					if ( $request[ 'phoneNum' ] != null ) {
 						$appointment -> phoneNum = $request[ 'phoneNum' ];
