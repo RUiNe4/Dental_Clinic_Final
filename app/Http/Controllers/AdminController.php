@@ -51,14 +51,20 @@
         public function generateReceipt ( Request $request , $doctor )
         {
             $amount = $request -> get ( 'total' );
+            // dd();
+            $patient = Appointment::find($request->get('patient_name'));
+            // dd($patient);
             if ( $amount > 0 ) {
                 DB ::table ( 'invoices' ) -> insert ( [
-                    'patient' => $request -> get ( 'patient_name' ) ,
+                    'patient' => $patient->firstName . " " . $patient->lastName ,
                     'date' => $request -> get ( 'curdate' ) ,
                     'doctor' => $doctor ,
                     'amount' => $amount ,
                 ] );
 
+                $patient->paid = 1;
+                $patient->update();
+                
                 $invoice_id = DB ::table ( 'invoices' ) -> orderBy ( 'id' , 'desc' ) -> first () -> id;
 
                 $invoice_items = invoice_items ::where ( 'invoice_id' , NULL ) -> get ();

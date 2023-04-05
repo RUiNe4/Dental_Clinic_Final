@@ -30,14 +30,13 @@
                 <select id="patient_name" name="patient_name"
                         class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2.5 mt-2 mr-5">
                     @foreach ($patients as $patient)
-                        @if($patient->status == 'Approve')
+                        @if($patient->status == 'Approve' && $patient->paid == 0)
                             <option
-                                value="{{ $patient->firstName . ' ' . $patient->lastName }}">{{ $patient->firstName . ' ' . $patient->lastName }}</option>
+                                value="{{ $patient->id }}">{{ $patient->firstName . ' ' . $patient->lastName }}</option>
                         @endif
                     @endforeach
                 </select>
-
-                <button {{ $total > 0 ? 'onclick="window.print()"' : '' }}
+                <button onclick="checkIfPaid({{$total}})"
                         class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-3">
                     Generate Receipt
                 </button>
@@ -133,11 +132,21 @@
         <div class="flex items-center">
             <label style="margin-top:50px; margin-right:20px;" for="">Total: </label>
             <input type="text" value="{{$total}}"
-                   style="background-color: white; text-align:start; width:50px;margin-top:50px;"
+                   style="background-color: white; text-align:start; width:150px;text-align:right;margin-top:50px;"
                    disabled/>
             <label for="" style="margin-top:50px;">$</label>
         </div>
     @else
 
     @endif
+    <script>
+        function checkIfPaid($total)
+        {
+            if($total > 0){
+                window.print();
+            }else{
+                alert('Invoice is empty');
+            }
+        }
+    </script>
 @endsection

@@ -23,7 +23,7 @@
 				$table -> date ( 'birthday' ) -> nullable ();
 				$table -> date ( 'appointmentDate' ) -> nullable ();
 				$table -> text ( 'message' ) -> nullable ();
-				$table -> integer ( 'invoice_id' ) -> nullable ();
+				// $table -> integer ( 'invoice_id' ) -> nullable ();
 				$table -> boolean ( 'paid' ) -> default ( false );
 				$table -> timestamps ();
 			} );
