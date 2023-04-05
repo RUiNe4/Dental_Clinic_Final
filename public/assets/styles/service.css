@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------------------------- */
+
+.card {
+    width: 230px;
+    height: 230px;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 15px 25px;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin: 10px 15px;
+    background-position: center;
+    background-size: cover;
+    transition: 0.5s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.place-row{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+}
+
+.pic1 {
+    background-image: url('/assets/image/logo.png');
+}
+
+.pic2 {
+    background-image: url('/assets/image/logo.png');
+}
+
+.pic3 {
+    background-image: url('/assets/image/logo.png');
+}
+
+.pic4 {
+    background-image: url('/assets/image/logo.png');
+}
+
+.pic5 {
+    background-image: url('/assets/image/logo.png');
+}
+
+.pic6 {
+    background-image: url('/assets/image/logo.png');
+}
+
+.pic7 {
+    background-image: url('/assets/image/logo.png');
+}
+
+.pic8 {
+    background-image: url('/assets/image/logo.png');
+}
+
+h5 {
+    color: #fff;
+    text-shadow: 0 0 5px #999;
+}
+
+.card p {
+    text-shadow: 0 0 15px #000;
+    font-size: 12px;
+}

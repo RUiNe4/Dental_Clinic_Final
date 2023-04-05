@@ -41,12 +41,12 @@
 				</button>
 			</div>
 			
-			<div class="mt-8">
-				<p>
-					Don't have an account?
-					<a href="/register" class="text-laravel">Register</a>
-				</p>
-			</div>
+{{--			<div class="mt-8">--}}
+{{--				<p>--}}
+{{--					Don't have an account?--}}
+{{--					<a href="/register" class="text-laravel">Register</a>--}}
+{{--				</p>--}}
+{{--			</div>--}}
 			<div class="mt-8">
 				<p>
 					<a href="/" class="text-laravel"><i class="fa fa-solid fa-arrow-left">Back to homepage</i></a>

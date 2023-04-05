@@ -60,8 +60,8 @@
 				<a href="{{ url('/service') }}" class="text-md hover:cursor-pointer underline-animation">Services</a>
 				<a href="{{ url('/our-doctor') }}" class="text-md hover:cursor-pointer underline-animation">Our
 					Doctors</a>
-				<a href="{{ url('/contact') }}" class="text-md hover:cursor-pointer underline-animation">Contact</a>
-				<a href="{{ url('/community') }}" class="text-md hover:cursor-pointer underline-animation">Community</a>
+				<a href="{{ url('/appointment') }}" style="background-color: #65C7D0"
+					 class="p-2 rounded-lg text-md hover:cursor-pointer">Appointment</a>
 			
 			</div>
 			{{--			dropdown when small --}}
@@ -88,23 +88,17 @@
 							 role="menuitem" tabindex="-1" id="menu-item-2">Appointment</a>
 						<a href="{{ url('/') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
 							 tabindex="-1" id="menu-item-0">Home</a>
-						<a href="{{ url('/') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
+						<a href="{{ url('/our-doctor') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
+							 tabindex="-1" id="menu-item-2">Our Doctor</a>
+						<a href="{{ url('/service') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
 							 tabindex="-1" id="menu-item-1">Service</a>
-						<a href="{{ url('/') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-							 tabindex="-1" id="menu-item-2">Contact</a>
-						<a href="{{ url('/') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-							 tabindex="-1" id="menu-item-2">Community</a>
-						<a href="{{ url('/') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-							 tabindex="-1" id="menu-item-2">Cost</a>
+						<a href="{{ url('/login') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
+							 tabindex="-1" id="menu-item-1">Sign In</a>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="flex">
-			<div class="navigation">
-				<a style="background-color: #65C7D0" href="{{ url('/appointment') }}"
-					 class="px-4 py-2 text-md italic rounded-full hover:cursor-pointer hover: active:opacity-80">Appointment</a>
-			</div>
 			<div class="navigation">
 				<a style="background-color: #65C7D0" href="{{ url('/login') }}"
 					 class="px-4 py-2 text-md italic rounded-full hover:cursor-pointer hover: active:opacity-80">Sign

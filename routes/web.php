@@ -5,6 +5,7 @@
 	use App\Http\Controllers\OurDoctorController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\RequestFormController;
+	use App\Http\Controllers\ServiceController;
 	use App\Http\Controllers\UserController;
 	use App\Models\Appointment;
 	use App\Models\User;
@@ -15,17 +16,9 @@ use App\Http\Controllers\RequestFormController;
 	Route ::get ( '/' , function () {
 		return view ( 'welcome' );
 	} );
-
-    Route::get('/generatePDF', [PDFController::class, 'generatePDF']);
-
-	Route ::get ( '/service' , function () {
-		return view ( 'WIP' );
-	} );
-
-	Route ::get ( '/contact' , function () {
-		return view ( 'WIP' );
-	} );
-
+	
+	Route ::get ( '/service' , ServiceController::class );
+	
 	Route ::get ( '/community' , function () {
 		return view ( 'WIP' );
 	} );
@@ -46,6 +39,8 @@ use App\Http\Controllers\RequestFormController;
 		Route ::get ( '/admin' , AdminController::class ) -> name ( 'admin' );
 		// admin home
 		Route ::get ( '/admin/doctor-list' , 'index' );
+		// search
+		Route ::get ( '/admin/search' , 'search' );
 		// show patient with no appointed doctor
 		Route ::get ( '/admin/mailbox' , 'myMail' );
 		// show patient related to doctor

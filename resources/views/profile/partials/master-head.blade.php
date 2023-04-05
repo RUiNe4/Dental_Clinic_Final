@@ -27,5 +27,6 @@
 		href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,700&family=Montserrat:wght@100;300;400;500;600;700&display=swap"
 		rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/styles/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/service.css') }}">
 	@livewireStyles
 </head>

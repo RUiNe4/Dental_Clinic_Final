@@ -13,6 +13,7 @@
 	use Illuminate\Support\Facades\DB;
 	use Illuminate\Support\Facades\Hash;
 	use Illuminate\Validation\Rule;
+	use PhpParser\Node\Expr\AssignOp\Concat;
 	
 	class UserController extends AdminController
 	{
@@ -140,8 +141,12 @@
 				return redirect ( '/doctor/patient-list' );
 			}
 			if ( $search ) {
-				$patients = Appointment ::where ( 'firstName' , 'like' , "%{$search}%" )
-					-> orwhere ( 'lastName' , 'like' , "%{$search}%" )
+//				$patients = Appointment ::where ( 'firstName' , 'like' , "%{$search}%" )
+//					-> orwhere ( 'lastName' , 'like' , "%{$search}%" )
+//					-> orwhere ( 'id' , 'like' , "%{$search}%" )
+//					-> having ( 'appointedDoctor' , '=' , auth () -> user () -> name )
+//					-> paginate ( 6 );
+				$patients = Appointment ::where (DB::raw('CONCAT_WS(" ", firstName, lastName)'), 'like' , "%{$search}%" )
 					-> orwhere ( 'id' , 'like' , "%{$search}%" )
 					-> having ( 'appointedDoctor' , '=' , auth () -> user () -> name )
 					-> paginate ( 6 );
