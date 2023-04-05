@@ -52,12 +52,12 @@
 			<div class="text-white">
 			</div>
 		</div>
-		
+
 		<div class="w-3/12 bg-[#E0E0E0] rounded-2xl mx-2 p-5">
 			<h1 class="text-center">Past Treatments</h1>
 			<hr class="border-black">
 			@for($i = 0; $i < count($invoice_items);$i++)
-				id {{  $invoice_items[$i][0]->invoice_id }}
+				id {{  $invoice_items[$i][2]->invoice_id }}
 				<hr class="border border-black">
 				@for($j =0 ;$j<count($invoice_items[$i]); $j++)
 					<div>
@@ -84,9 +84,9 @@
 				@endfor
 				<hr class="border border-black">
 			@endfor
-		
+
 		</div>
-		
+
 		<div
 			class="relative w-full max-w-sm overflow-y-scroll bg-white border border-gray-100 rounded-lg dark:bg-gray-700 dark:border-gray-600 h-96">
 			<ul>
@@ -97,7 +97,7 @@
 				@endforeach
 			</ul>
 		</div>
-	
+
 	</div>
 
 @endsection
