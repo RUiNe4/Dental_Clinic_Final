@@ -12,12 +12,14 @@
 		 */
 		public function up ()
 		{
-			Schema ::create ( 'invoices' , function ( Blueprint $table ) {
+			Schema ::create ( 'invoice_items' , function ( Blueprint $table ) {
 				$table -> id ();
-				$table -> string ( 'patient' );
+				$table -> integer ( 'invoice_id' ) -> nullable ();
+				$table -> string ( 'treatment_id' );
+				$table -> string ( 'treatment_name' );
+				$table -> integer ( 'qty' );
+				$table -> double ( 'price' );
 				$table -> double ( 'amount' );
-				$table -> string ( 'date' );
-				$table -> string ( 'doctor' );
 				$table -> timestamps ();
 			} );
 		}
@@ -29,6 +31,6 @@
 		 */
 		public function down ()
 		{
-			Schema ::dropIfExists ( 'invoices' );
+			Schema ::dropIfExists ( 'invoice_items' );
 		}
 	};

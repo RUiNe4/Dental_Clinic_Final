@@ -1,8 +1,8 @@
 <div class="w-full flex justify-start items-start my-2">
 	<div class="w-full sm:w-10/12 md:w-1/2 my-1">
 		<ul class="flex flex-col">
-			<li class="bg-white my-2"  x-data="accordion({{ $patient->id }})">
-				<h2 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer"	 @click="handleClick()">
+			<li class="bg-white my-2" x-data="accordion({{ $patient->id }})">
+				<h2 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer" @click="handleClick()">
 				<span style="color:#4F9298">
 						<a
 							href="{{ request ()->path () == 'doctor/mailbox' ? url('/doctor/mailbox/'.$patient->id) : url('/appointment/' . $patient->id) }}"

@@ -12,7 +12,7 @@ class TreatmentSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         DB::table('treatments')->insert([
             'treatment_name' => 'Filling',

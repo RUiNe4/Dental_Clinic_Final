@@ -60,6 +60,7 @@ use App\Http\Controllers\RequestFormController;
 		// decline appointment
 		Route ::delete ( '/admin/mailbox/{appointment}' , 'destroyAppointment' );
 //		edit patient
+//      update appointment
 		Route ::patch ( '/admin/update/{appointment}' , 'update' );
 		Route ::get ( '/admin/treatment-list' , 'showTreatmentList' );
 		Route ::delete ( '/admin/treatment-list/{treatment}' , 'destroyTreatment' );

@@ -2,7 +2,6 @@
 	<!doctype html>
 <html lang="en">
 @include('profile.partials.admin-head')
-
 <body class="cbp-spmenu-push">
 @include('profile.partials.admin-header')
 @include('profile.partials.sidebar')
