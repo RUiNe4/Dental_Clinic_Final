@@ -19,14 +19,25 @@
 	{
 		public function index ()
 		{
+
+//			$date = Invoice::select('date')->where('date', '!=', NULL)->get();
+////			dd($date);
+//			$userData = Invoice ::select ( DB ::raw ( "COUNT(*) as count" ) )
+//				-> whereDate ( "date" , date($date) )
+//				-> groupBy ( DB ::raw ( "Month(date)" ) )
+//				-> pluck ( 'count' );
+			
 			if ( Auth ::check () ) {
 				if ( auth () -> user () -> acc_type == 'Doctor' ) {
 					// The user is logged in...
-//					$patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
+					$patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
 					$doctors = User ::all ();
 					$countMail = count ( Appointment ::where ( 'appointedDoctor' , null ) -> get () );
-					
-					return view ( 'layouts.admin' , compact ( 'countMail' , 'doctors' ) );
+//					$invoices = Invoice::all ();
+					$revenue = Invoice ::all () -> sum ( function ( $t ) {
+						return $t->amount;
+					} );
+					return view ( 'pages.admin-home' , compact ('patients', 'countMail' , 'doctors', 'revenue' ) );
 				} else {
 					auth ::logout ();
 					return view ( 'pages.login' );
@@ -117,7 +128,7 @@
 					-> get ();
 			}
 			
-			return view ( 'pages.patient-info' , compact ( 'invoice_items' , 'patients' , 'appointment' , 'doctors' ) );
+			return view ( 'pages.patient-info' , compact ( 'invoice_items' , 'patients' , 'appointment' , 'doctors' , 'invoice' ) );
 		}
 		
 		public function myPatients ( Auth $auth )
@@ -146,7 +157,7 @@
 //					-> orwhere ( 'id' , 'like' , "%{$search}%" )
 //					-> having ( 'appointedDoctor' , '=' , auth () -> user () -> name )
 //					-> paginate ( 6 );
-				$patients = Appointment ::where (DB::raw('CONCAT_WS(" ", firstName, lastName)'), 'like' , "%{$search}%" )
+				$patients = Appointment ::where ( DB ::raw ( 'CONCAT_WS(" ", firstName, lastName)' ) , 'like' , "%{$search}%" )
 					-> orwhere ( 'id' , 'like' , "%{$search}%" )
 					-> having ( 'appointedDoctor' , '=' , auth () -> user () -> name )
 					-> paginate ( 6 );
@@ -169,7 +180,7 @@
 						$this -> mail ( $appointment -> email , 'Using Reschedule from patient info
 					New Date: ' . $request[ 'apntDate' ] );
 					}
-					
+					$appointment -> paid = 0;
 					$appointment -> update ();
 					return redirect () -> back ();
 				case 'delete':

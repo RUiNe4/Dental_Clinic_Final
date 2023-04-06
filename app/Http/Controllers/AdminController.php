@@ -29,7 +29,10 @@
 		{
 			$treatments = Treatment ::all ();
 			$items = Temp ::all ();
-			$myTime = Carbon ::now ();
+			$format = date('Y-m-d');
+//			$myTime = Carbon ::now ();
+			$myTime = Carbon::createFromFormat('Y-m-d', $format)
+				->format('Y-m-d');
 			$patients = Appointment ::where ( 'appointedDoctor' , Auth ::user () -> name ) -> get ();
 			$countMail = Appointment ::where ( 'appointedDoctor' , null ) -> count ();
 			$amount = Temp ::all () -> sum ( function ( $t ) {
@@ -43,7 +46,7 @@
 				'treatments' => $treatments ,
 				'items' => $items ,
 				'total' => $amount ,
-				'date' => $myTime -> toDateTimeString () ,
+				'date' => $myTime,
 				'countMail' => $countMail ,
 			] );
 		}

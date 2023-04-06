@@ -63,47 +63,9 @@
 			<div class="text-white">
 			</div>
 		</div>
-		
-		<div class="flex-1 bg-[#E0E0E0] rounded-2xl mx-2 p-5">
-			<h1 class="text-center">Past Treatments</h1>
-			<hr class="border-black">
-			@if( count($invoice_items) > 0)
-				@for($i = 0; $i < count($invoice_items);$i++)
-					id {{  $invoice_items[$i][2]->invoice_id }}
-					<hr class="border border-black">
-					@for($j =0 ;$j<count($invoice_items[$i]); $j++)
-						<div>
-							treatment
-							{{  $invoice_items[$i][$j]->treatment_id }}
-						</div>
-						<div>
-							treatment name
-							{{  $invoice_items[$i][$j]->treatment_name }}
-						</div>
-						<div>
-							qty
-							{{  $invoice_items[$i][$j]->qty }}
-						</div>
-						<div>
-							price
-							{{  $invoice_items[$i][$j]->price }}
-						</div>
-						<div>
-							amount
-							{{  $invoice_items[$i][$j]->amount }}
-						</div>
-						<br>
-					@endfor
-					<hr class="border border-black">
-				@endfor
-			@else
-				<span class="text-gray-500">
-					Patient has never been treated yet
-				</span>
-			@endif
-		
+		<div class="flex-1">
+			@include('profile.partials.popup-invoice')
 		</div>
-		
 		<div
 			class="flex-1 relative w-full max-w-sm overflow-y-scroll bg-white border border-gray-100 rounded-lg dark:bg-gray-700 dark:border-gray-600 h-96">
 			<ul>
@@ -114,7 +76,7 @@
 				@endforeach
 			</ul>
 		</div>
-	
 	</div>
+	
 
 @endsection
