@@ -4,7 +4,7 @@
 		<div class="r3_counter_box">
 			<i class="pull-left fa fa-users dollar2 icon-rounded"></i>
 			<div class="stats">
-				<h5><strong>{{ count($patients) }}</strong></h5>
+				<h5><strong>{{ \App\Models\Appointment::where('appointedDoctor', auth()->user ()->name)->count() }}</strong></h5>
 				<span>Total Patients</span>
 			</div>
 		</div>
