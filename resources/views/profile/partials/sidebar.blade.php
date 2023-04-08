@@ -64,7 +64,10 @@
 						\App\Models\Appointment::where([
 						'appointedDoctor'=>auth()->user ()->name,
 						'status' => 'PENDING'])->count() :
-						$countMail }}
+						\App\Models\Appointment::where([
+							'status' => 'PENDING',
+							'appointedDoctor' => NULL
+])->count() }}
 									</span>
 								</a>
 							</li>

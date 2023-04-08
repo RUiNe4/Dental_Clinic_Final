@@ -19,25 +19,16 @@
 	{
 		public function index ()
 		{
-
-//			$date = Invoice::select('date')->where('date', '!=', NULL)->get();
-////			dd($date);
-//			$userData = Invoice ::select ( DB ::raw ( "COUNT(*) as count" ) )
-//				-> whereDate ( "date" , date($date) )
-//				-> groupBy ( DB ::raw ( "Month(date)" ) )
-//				-> pluck ( 'count' );
-			
 			if ( Auth ::check () ) {
 				if ( auth () -> user () -> acc_type == 'Doctor' ) {
 					// The user is logged in...
 					$patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
 					$doctors = User ::all ();
 					$countMail = count ( Appointment ::where ( 'appointedDoctor' , null ) -> get () );
-//					$invoices = Invoice::all ();
 					$revenue = Invoice ::all () -> sum ( function ( $t ) {
-						return $t->amount;
+						return $t -> amount;
 					} );
-					return view ( 'pages.admin-home' , compact ('patients', 'countMail' , 'doctors', 'revenue' ) );
+					return view ( 'pages.admin-home' , compact ( 'patients' , 'countMail' , 'doctors' , 'revenue' ) );
 				} else {
 					auth ::logout ();
 					return view ( 'pages.login' );
@@ -115,12 +106,13 @@
 		
 		public function patientInfo ( Appointment $appointment )
 		{
+			
 			$doctors = User ::latest () -> paginate ( 6 );
 			$patients = Appointment ::where ( [
 				'appointedDoctor' => auth () -> user () -> name ,
 				'status' => 'Approve' ,
 			] ) -> paginate ( 6 );
-			$invoices = Invoice ::where ( 'patient' , $appointment -> firstName . ' ' . $appointment -> lastName ) -> orderby ( 'id' , 'desc' ) -> get ();
+			$invoices = Invoice ::where ( 'patient_name' , $appointment -> firstName . ' ' . $appointment -> lastName ) -> orderby ( 'id' , 'desc' ) -> get ();
 			$invoice_items = array ();
 			
 			foreach ( $invoices as $invoice ) {
@@ -128,23 +120,25 @@
 					-> get ();
 			}
 			
-			return view ( 'pages.patient-info' , compact ( 'invoice_items' , 'patients' , 'appointment' , 'doctors' , 'invoice' ) );
+			return view ( 'pages.patient-info' , compact ( 'invoice_items' , 'patients' , 'appointment' , 'doctors' , 'invoices' ) );
 		}
 		
 		public function myPatients ( Auth $auth )
 		{
+			$sort = \request ( 'sort' , 'asc' );
 			$doctors = User ::latest () -> paginate ( 6 );
 			$patients = Appointment ::where ( [
 				'appointedDoctor' => auth () -> user () -> name ,
 				'status' => 'Approve' ,
-			] ) -> paginate ( 6 );
-			$countMail = count ( Appointment ::where ( 'appointedDoctor' , null ) -> get () );
-			
-			return view ( 'pages.patient-list' , compact ( 'countMail' , 'patients' , 'doctors' ) );
+			] )
+				-> paginate ( 6 );
+			return view ( 'pages.patient-list' , compact ( 'sort' , 'patients' , 'doctors' ) );
 		}
+		
 		
 		public function search ()
 		{
+			$sort = \request ( 'sort' , 'asc' );
 			$countMail = count ( Appointment ::where ( 'appointedDoctor' , null ) -> get () );
 			$doctors = User ::all ();
 			$search = request () -> query ( 'appointment' );
@@ -152,11 +146,6 @@
 				return redirect ( '/doctor/patient-list' );
 			}
 			if ( $search ) {
-//				$patients = Appointment ::where ( 'firstName' , 'like' , "%{$search}%" )
-//					-> orwhere ( 'lastName' , 'like' , "%{$search}%" )
-//					-> orwhere ( 'id' , 'like' , "%{$search}%" )
-//					-> having ( 'appointedDoctor' , '=' , auth () -> user () -> name )
-//					-> paginate ( 6 );
 				$patients = Appointment ::where ( DB ::raw ( 'CONCAT_WS(" ", firstName, lastName)' ) , 'like' , "%{$search}%" )
 					-> orwhere ( 'id' , 'like' , "%{$search}%" )
 					-> having ( 'appointedDoctor' , '=' , auth () -> user () -> name )
@@ -165,7 +154,7 @@
 				$patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
 			}
 			
-			return view ( 'pages.patient-list' , compact ( 'countMail' , 'patients' , 'doctors' ) );
+			return view ( 'pages.patient-list' , compact ( 'sort', 'countMail' , 'patients' , 'doctors' ) );
 		}
 		
 		public function change ( Request $request , Appointment $appointment )

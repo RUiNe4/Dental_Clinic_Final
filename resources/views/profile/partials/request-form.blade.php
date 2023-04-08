@@ -60,7 +60,7 @@
 			<input style="background-color: #C0F3F7; color: #4F9298;" datepicker datepicker-format="yyyy-mm-dd"
 						 name="apntDate" type="text"
 						 class="border-none text-gray-900 rounded-md block w-full pl-10 p-2.5"
-						 placeholder="Select an Appointment">
+						 placeholder="Select an Appointment" required>
 		</div>
 		<textarea style="background-color: #C0F3F7; width: 100%" class="border-none rounded-md px-3 py-2" name="message"
 							id=""

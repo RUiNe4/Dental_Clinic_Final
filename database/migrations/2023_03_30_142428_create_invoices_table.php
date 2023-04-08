@@ -14,7 +14,8 @@
 		{
 			Schema ::create ( 'invoices' , function ( Blueprint $table ) {
 				$table -> id ();
-				$table -> string ( 'patient' );
+				$table -> integer ( 'patient_id' );
+				$table -> string ( 'patient_name' );
 				$table -> double ( 'amount' );
 				$table -> string ( 'date' );
 				$table -> string ( 'doctor' );

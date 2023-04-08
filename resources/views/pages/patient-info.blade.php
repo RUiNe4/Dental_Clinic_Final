@@ -69,7 +69,7 @@
 		<div
 			class="flex-1 relative w-full max-w-sm overflow-y-scroll bg-white border border-gray-100 rounded-lg dark:bg-gray-700 dark:border-gray-600 h-96">
 			<ul>
-				@foreach(auth()->user()->acc_type == "admin" ? $allPatients : $patients as $patient)
+				@foreach(auth()->user()->acc_type == "admin" ? \App\Models\Appointment::latest()->get() : $patients as $patient)
 					@if($patient->id != $appointment->id)
 						<x-patient.patient-list :patient="$patient"/>
 					@endif

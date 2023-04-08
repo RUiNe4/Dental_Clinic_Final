@@ -9,16 +9,10 @@
                 <div class="font-bold">
                    Invoice {{ $invoice_items[$i][0]->invoice_id }}
 									<i class="fa fa-long-arrow-right"></i>
-										<span class="text-xs font-bold ">{{ $invoice->date }} </span>
+{{--									@dd($invoices)--}}
+									<span class="text-xs font-bold ">{{ $invoices[0]->date }} </span>
                 </div>
                 <div class="text-xs"></div>
-{{--								<div class="text-sm">--}}
-{{--										<a href="https://mail.google.com/mail/?view=cm&fs=1&to={{ $patient->email }}"--}}
-{{--											 target="_blank" class="text-sm hover:underline hover:cursor-pointer">--}}
-{{--												{{ $patient->email }}--}}
-{{--												<i class="fa fa-mail-reply"> </i>--}}
-{{--										</a>--}}
-{{--								</div>--}}
             </span>
 							<div class="flex items-center gap-2">
 								<svg :class="handleRotate()" fill="#4F9298"

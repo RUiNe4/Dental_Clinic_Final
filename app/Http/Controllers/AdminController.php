@@ -29,10 +29,10 @@
 		{
 			$treatments = Treatment ::all ();
 			$items = Temp ::all ();
-			$format = date('Y-m-d');
+			$format = date ( 'Y-m-d' );
 //			$myTime = Carbon ::now ();
-			$myTime = Carbon::createFromFormat('Y-m-d', $format)
-				->format('Y-m-d');
+			$myTime = Carbon ::createFromFormat ( 'Y-m-d' , $format )
+				-> format ( 'Y-m-d' );
 			$patients = Appointment ::where ( 'appointedDoctor' , Auth ::user () -> name ) -> get ();
 			$countMail = Appointment ::where ( 'appointedDoctor' , null ) -> count ();
 			$amount = Temp ::all () -> sum ( function ( $t ) {
@@ -46,7 +46,7 @@
 				'treatments' => $treatments ,
 				'items' => $items ,
 				'total' => $amount ,
-				'date' => $myTime,
+				'date' => $myTime ,
 				'countMail' => $countMail ,
 			] );
 		}
@@ -59,7 +59,8 @@
 			// dd($patient);
 			if ( $amount > 0 ) {
 				DB ::table ( 'invoices' ) -> insert ( [
-					'patient' => $patient -> firstName . " " . $patient -> lastName ,
+					'patient_id' => $patient -> id ,
+					'patient_name' => $patient -> firstName . " " . $patient -> lastName ,
 					'date' => $request -> get ( 'curdate' ) ,
 					'doctor' => $doctor ,
 					'amount' => $amount ,
@@ -197,7 +198,7 @@
 			if ( auth () -> user () -> acc_type != 'admin' ) {
 				$appointment -> delete ();
 				
-				return redirect ( '/doctor/patient-list' );
+				return redirect ( '/doctor/mailbox' );
 			} else {
 				$appointment -> delete ();
 				
@@ -262,8 +263,48 @@
 			return view ( 'pages.doctor-list' , compact ( 'doctors' , 'countMail' ) );
 		}
 		
+		public function filter ()
+		{
+			$doctors = User ::latest () -> paginate ( 6 );
+			$sort = \request ( 'sort' , 'asc' );
+			$filter = request () [ 'filter' ];
+			switch ( $filter ) {
+				case 'paid':
+					$patients = Appointment ::where ( [
+						'appointedDoctor' => auth () -> user () -> name ,
+						'status' => 'Approve' ,
+						'paid' => 1
+					] )
+						-> orderby ( 'paid' , $sort )
+						-> paginate ( 6 );
+					break;
+				case 'unpaid':
+					$patients = Appointment ::where ( [
+						'appointedDoctor' => auth () -> user () -> name ,
+						'status' => 'Approve' ,
+						'paid' => 0
+					] )
+						-> orderby ( 'paid' , $sort )
+						-> paginate ( 6 );
+					break;
+				default:
+					if ( $filter == NULL ) {
+						return redirect ( '/doctor/patient-list' ) -> with ( 'status' , 'HI' );
+					}
+					$patients = Appointment ::where ( [
+						'appointedDoctor' => auth () -> user () -> name ,
+						'status' => 'Approve' ,
+					] )
+						-> orderby ( $filter , $sort )
+						-> paginate ( 6 );
+					break;
+			}
+			return view ( 'pages.patient-list' , compact ( 'sort' , 'doctors' , 'patients' ) );
+		}
+		
 		public function doctorMail ( $doctor )
 		{
+			
 			$doctors = User ::all ();
 			$patients = Appointment ::where ( [
 				'appointedDoctor' => $doctor ,
@@ -282,6 +323,12 @@
 		
 		public function myMail ()
 		{
+			$sort = \request ( 'sort' , 'asc' );
+			if ( \auth () -> user () -> acc_type == 'Doctor' ) {
+				$url = '/doctor/patient-list/';
+			} else {
+				$url = '/admin/mailbox/' . \auth () -> user () -> name . '/';
+			}
 			$doctors = User ::where ( 'acc_type' , 'Doctor' ) -> get ();
 			if ( auth () -> user () -> acc_type == 'Doctor' ) {
 				$patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name )
@@ -294,8 +341,7 @@
 				) -> paginate ( 6 );
 				$countMail = count ( $patients );
 			}
-			//			$countMail = Appointment ::where ( 'appointedDoctor' , NULL ) -> count ();
-			return view ( 'pages.patient-list' , compact ( 'countMail' , 'patients' , 'doctors' ) );
+			return view ( 'pages.patient-list' , compact ('url', 'sort', 'countMail' , 'patients' , 'doctors' ) );
 		}
 		
 		public function show ( User $user )
@@ -304,7 +350,7 @@
 			$doctors = User ::all ();
 			$invoices = Invoice ::where ( 'doctor' , $user -> name ) -> get ();
 			//			dd($user);
-			return view ( 'pages.edit-doctor' , compact ( 'countMail' , 'user' , 'doctors' , 'invoices') );
+			return view ( 'pages.edit-doctor' , compact ( 'countMail' , 'user' , 'doctors' , 'invoices' ) );
 		}
 		
 		public function search ()

@@ -2,7 +2,7 @@
 	<div class="w-full sm:w-10/12 md:w-1/2 my-1">
 		<ul class="flex flex-col">
 			<li class="bg-white my-2" x-data="accordion({{ $patient->id }})">
-				<h2 class="flex flex-row justify-between items-center font-semibold cursor-pointer"  @click="handleClick()">
+				<h2 class="flex flex-row justify-between items-center font-semibold cursor-pointer" @click="handleClick()">
             <span style="color:#4F9298">
                 <a
 									href="{{ request()->path() == 'doctor/mailbox' ? url('/doctor/mailbox/' . $patient->id) : url('/appointment/' . $patient->id) }}"
@@ -42,7 +42,7 @@
 					</div>
 				</h2>
 				<div x-ref="tab" :style="handleToggle()"
-						 class="border-l-2 border-gray-700 overflow-hidden max-h-0 duration-500 transition-all">
+						 class="border-l-2 border-[#4F9298] overflow-hidden max-h-0 duration-500 transition-all">
 					<p class="p-3 text-gray-900">
 						{{ $patient->message }}
 					</p>

@@ -13,36 +13,31 @@
 		<thead class="text-xs text-gray-700 uppercase">
 		<tr>
 			<th scope="col" class="px-6 py-3">
-				No
+				Invoice No
 			</th>
 			<th scope="col" class="px-6 py-3">
-				Product name
+				Patient Name
 			</th>
 			<th scope="col" class="px-6 py-3">
-				Price
+				Invoice Date
 			</th>
 			<th scope="col" class="px-6 py-3">
-				Qty
-			</th>
-			<th scope="col" class="px-6 py-3">
-				Amount
+				Total
 			</th>
 		</tr>
 		</thead>
 		
 		<tbody>
 		@if (count ($invoices)>0)
-			@foreach ($invoices as $key => $invoice)
+			@foreach ($invoices as $invoice)
 				<tr class="bg-white border-b">
-					<td class="px-6 py-4">
-						{{ ++$key }}
-					</td>
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 						{{ $invoice->id }}
 					</th>
-					
-					<td class="px-6 py-4">
-						{{ $invoice->patient }}
+					<td class="px-6 py-4 font-bold">
+						<a href="/appointment/{{ $invoice->patient_id }}">
+							{{ $invoice->patient_name }}
+						</a>
 					</td>
 					<td class="px-6 py-4">
 						{{ $invoice->date }}

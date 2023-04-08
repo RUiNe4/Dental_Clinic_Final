@@ -1,10 +1,10 @@
 <?php
-
+	
 	use App\Http\Controllers\AdminController;
 	use App\Http\Controllers\MailController;
 	use App\Http\Controllers\OurDoctorController;
-use App\Http\Controllers\PDFController;
-use App\Http\Controllers\RequestFormController;
+	use App\Http\Controllers\PDFController;
+	use App\Http\Controllers\RequestFormController;
 	use App\Http\Controllers\ServiceController;
 	use App\Http\Controllers\UserController;
 	use App\Models\Appointment;
@@ -12,7 +12,7 @@ use App\Http\Controllers\RequestFormController;
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\Route;
 	use Illuminate\Support\Facades\Session;
-
+	
 	Route ::get ( '/' , function () {
 		return view ( 'welcome' );
 	} );
@@ -22,20 +22,20 @@ use App\Http\Controllers\RequestFormController;
 	Route ::get ( '/community' , function () {
 		return view ( 'WIP' );
 	} );
-
+	
 	Route ::controller ( RequestFormController::class ) -> group ( function () {
 		Route ::get ( '/appointment' , RequestFormController::class );
 		Route ::post ( '/appointment' , 'store' );
 	} );
-
+	
 	Route ::controller ( OurDoctorController::class ) -> group ( function () {
 		Route ::get ( '/our-doctor' , OurDoctorController::class );
 		Route ::get ( '/our-doctor/{user}' , 'show' );
 		Route ::post ( '/our-doctor/{user}' , 'store' );
 	} );
-
+	
 	Route ::controller ( AdminController::class ) -> group ( function () {
-        // invoke
+		// invoke
 		Route ::get ( '/admin' , AdminController::class ) -> name ( 'admin' );
 		// admin home
 		Route ::get ( '/admin/doctor-list' , 'index' );
@@ -43,6 +43,7 @@ use App\Http\Controllers\RequestFormController;
 		Route ::get ( '/admin/search' , 'search' );
 		// show patient with no appointed doctor
 		Route ::get ( '/admin/mailbox' , 'myMail' );
+		Route ::delete ( '/admin/delete/{appointment}' , 'destroyAppointment' );
 		// show patient related to doctor
 		Route ::get ( '/admin/mailbox/{user}' , 'doctorMail' );
 		// show doctor info
@@ -68,7 +69,7 @@ use App\Http\Controllers\RequestFormController;
 		Route ::get ( '/create/invoice/clear' , 'clearFromTable' );
 		Route ::post ( '/create/invoice/generate/{doctor}' , 'generateReceipt' );
 	} );
-
+	
 	Route ::controller ( UserController::class ) -> group ( function () {
 		//show register view
 		Route ::get ( '/register' , 'register' );
@@ -79,15 +80,17 @@ use App\Http\Controllers\RequestFormController;
 		Route ::post ( '/login/authenticate' , 'authenticate' );
 		//logout
 		Route ::post ( '/logout' , 'logout' );
-
+		
 		Route ::get ( '/doctor' , 'index' );
 		//Show patients according to doctor
 		Route ::get ( '/doctor/patient-list' , 'myPatients' );
+		Route ::get ( '/doctor/patient-list/{sort}' , 'filter' );
+//		Route ::get ( '/doctor/patient-list' , 'filter' );
 		Route ::get ( '/doctor/mailbox' , 'myMail' );
 		Route ::get ( '/doctor/mailbox/{appointment}' , 'patientInfo' );
-
+		
 		Route ::get ( '/doctor/search' , 'search' );
-
+		
 		Route ::get ( '/appointment/{appointment}' , 'patientInfo' );
 		Route ::get ( '/appointment/{appointment}/change' , 'change' );
 //		Route ::fallback ( function () {
