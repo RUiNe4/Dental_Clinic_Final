@@ -323,11 +323,6 @@
 		public function myMail ()
 		{
 			$sort = \request ( 'sort' , 'asc' );
-			if ( \auth () -> user () -> acc_type == 'Doctor' ) {
-				$url = '/doctor/patient-list/';
-			} else {
-				$url = '/admin/mailbox/' . \auth () -> user () -> name . '/';
-			}
 			$doctors = User ::where ( 'acc_type' , 'Doctor' ) -> get ();
 			if ( auth () -> user () -> acc_type == 'Doctor' ) {
 				$patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name )
@@ -341,7 +336,7 @@
 				$countMail = count ( $patients );
 			}
 			
-			return view ( 'pages.patient-list' , compact ( 'url' , 'sort' , 'countMail' , 'patients' , 'doctors' ) );
+			return view ( 'pages.patient-list' , compact ( 'sort' , 'countMail' , 'patients' , 'doctors' ) );
 		}
 		
 		public function show ( User $user )

@@ -63,9 +63,9 @@
 			<div class="text-white">
 			</div>
 		</div>
-		<div class="flex-1">
-			@include('profile.partials.popup-invoice')
-		</div>
+{{--		<div class="flex-1">--}}
+{{--			@include('profile.partials.popup-invoice')--}}
+{{--		</div>--}}
 		<div
 			class="flex-1 relative w-full max-w-sm overflow-y-scroll bg-white border border-gray-100 rounded-lg dark:bg-gray-700 dark:border-gray-600 h-96">
 			<ul>

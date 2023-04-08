@@ -190,6 +190,24 @@
 					return abort ( '404' );
 			}
 		}
+		public function invoice_record(){
+//			$doctors = User ::latest () -> paginate ( 6 );
+			$patients = Appointment ::where ( [
+				'appointedDoctor' => auth () -> user () -> name ,
+				'status' => 'Approve' ,
+				'paid' => 1
+			] ) -> get();
+//			$invoices = Invoice ::where ( 'patient_name' , $appointment -> firstName . ' ' . $appointment -> lastName ) -> orderby ( 'id' , 'desc' ) -> get ();
+			$invoices = Invoice ::where('doctor', auth()->user ()->name)->get();
+			$invoice_items = array ();
+			
+			foreach ( $invoices as $invoice ) {
+				$invoice_items[] = invoice_items ::where ( 'invoice_id' , $invoice -> id )
+					-> get ();
+			}
+			
+			return view('pages.invoice-record', compact ('patients', 'invoices', 'invoice_items'));
+		}
 	}
 	
 	//{{$user->photo ? asset ('storage/' . $user->photo) : asset('/image/1.jpg)}}

@@ -1,4 +1,4 @@
-<div class="flex mt-3 items-center">
+<div class="flex mb-3 items-center">
 	<form class="flex items-start w-3/4" action="/doctor/patient-list/{{ $sort == 'asc' ? 'desc' : 'asc' }}">
 		<button
 			class="rounded-lg mr-3  text-left py-1 px-3 text-gray-900 hover:bg-[#4F9298] hover:cursor-pointer hover:border-none hover:text-white ease-in-out duration-300 {{ request ()['filter'] == NULL ? 'font-bold border-b-2 border-[#65C7D0] rounded-lg' : '' }}"

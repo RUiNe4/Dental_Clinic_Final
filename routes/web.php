@@ -85,6 +85,8 @@
 		Route ::get ( '/doctor/mailbox' , 'myMail' );
 		Route ::get ( '/doctor/mailbox/{appointment}' , 'patientInfo' );
 		
+		Route::get('/doctor/invoice-record', 'invoice_record');
+		
 		Route ::get ( '/doctor/search' , 'search' );
 		
 		Route ::get ( '/appointment/{appointment}' , 'patientInfo' );

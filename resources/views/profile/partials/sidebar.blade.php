@@ -35,8 +35,8 @@
 												 user-type="Patient List"/>
 					@endif
 					<li class="{{ auth()->user ()->acc_type == "admin" ? 'hidden' : '' }}">
-						<a href="/create/invoice">
-							<i class="fa fa-solid fa-money"></i> <span>Create invoice</span>
+						<a href="/doctor/invoice-record">
+							<i class="fa fa-solid fa-money"></i> <span>Invoice Records</span>
 						</a>
 					</li>
 					<li>

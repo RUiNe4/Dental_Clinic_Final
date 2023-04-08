@@ -5,16 +5,23 @@
 				@for($i = 0; $i < count($invoice_items);$i++)
 					<li class="shadow-md bg-white my-2 px-8 py-4" x-data="accordion({{ $invoice_items[$i][0]->id }})">
 						<h2 class="flex flex-row justify-between items-center font-semibold cursor-pointer" @click="handleClick()">
-            <span style="color:#4F9298">
-                <div class="font-bold">
-                   Invoice {{ $invoice_items[$i][0]->invoice_id }}
-									<i class="fa fa-long-arrow-right"></i>
-{{--									@dd($invoices)--}}
-									<span class="text-xs font-bold ">{{ $invoices[0]->date }} </span>
-                </div>
-                <div class="text-xs"></div>
-            </span>
+							<span style="color:#4F9298">
+									<div class="font-bold">
+{{--										 {{ $invoice_items[$i][0]->invoice_id }}--}}
+										{{ $invoices[$i]->patient_name }}
+										<i class="fa fa-long-arrow-right"></i>
+	{{--									@dd($invoices)--}}
+										<span class="text-xs font-bold ">{{ $invoices[0]->date }} </span>
+									</div>
+							</span>
 							<div class="flex items-center gap-2">
+								<span style="color:#4F9298">
+									<div class="font-bold">
+										 Invoice {{ $invoice_items[$i][0]->invoice_id }}
+										
+									</div>
+									<div class="text-xs"></div>
+							</span>
 								<svg :class="handleRotate()" fill="#4F9298"
 										 class="text-purple-700 h-6 w-6 transform transition-transform duration-500"
 										 viewBox="0 0 20 20">

@@ -1,8 +1,10 @@
 @extends('layouts.admin')
 @section('content')
 	<main class="">
-		<x-header title="Pending Appointments"></x-header>
-		<div class="{{ auth ()->user ()->acc_type == 'admin' ? 'hidden' : '' }}">
+{{--		<x-header>--}}
+{{--			Mailbox--}}
+{{--		</x-header>--}}
+		<div class="{{ auth ()->user ()->acc_type == 'admin' || request ()->path () == 'doctor/mailbox' ? 'hidden' : '' }}">
 			<x-filter-form :sort="$sort"/>
 		</div>
 		<div class="px-2 mt-3 patient-container">
