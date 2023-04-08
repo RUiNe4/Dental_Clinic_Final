@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 @section('content')
 	<main class="">
-		<x-header title="Our Dentists"/>
+		<x-header>
+			Our Dentists
+		</x-header>
 		<a href="/register">
 			<button
 				class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-3 ml-2">

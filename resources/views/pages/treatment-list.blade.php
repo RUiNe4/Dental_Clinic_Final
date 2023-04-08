@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 @section('content')
 	<main class="">
-		<x-header title="Treatment Procedures"/>
+		<x-header>
+			Treatment Procedures
+		</x-header>
 		<a href="/admin/create/treatment-list">
 			<button
 				class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-3 ml-2">

@@ -304,6 +304,7 @@
 		
 		public function doctorMail ( $doctor )
 		{
+			$sort = \request ( 'sort' , 'asc' );
 			$doctors = User ::all ();
 			$patients = Appointment ::where ( [
 				'appointedDoctor' => $doctor ,
@@ -317,7 +318,7 @@
 				'status' => 'PENDING' ,
 			] ) -> count ();
 			
-			return view ( 'pages.patient-list' , compact ( 'doctorMail' , 'countMail' , 'patients' , 'doctors' ) );
+			return view ( 'pages.patient-list' , compact ( 'sort', 'doctorMail' , 'countMail' , 'patients' , 'doctors' ) );
 		}
 		
 		public function myMail ()
@@ -350,6 +351,7 @@
 		
 		public function search ()
 		{
+			$sort = \request ( 'sort' , 'asc' );
 			$countMail = Appointment ::where ( 'appointedDoctor' , null ) -> count ();
 			$doctors = User ::all ();
 			$search = request () -> query ( 'appointment' );
@@ -364,6 +366,6 @@
 				$patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
 			}
 			
-			return view ( 'pages.patient-list' , compact ( 'countMail' , 'patients' , 'doctors' ) );
+			return view ( 'pages.patient-list' , compact ( 'sort', 'countMail' , 'patients' , 'doctors' ) );
 		}
 	}
