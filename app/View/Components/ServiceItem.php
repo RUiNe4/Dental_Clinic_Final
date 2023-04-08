@@ -11,7 +11,8 @@ class ServiceItem extends Component
      *
      * @return void
      */
-		public $services;
+    public $services;
+
     public function __construct($services)
     {
         $this->services = $services;
