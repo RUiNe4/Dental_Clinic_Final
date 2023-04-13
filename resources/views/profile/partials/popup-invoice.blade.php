@@ -3,22 +3,23 @@
 		@if( count($invoice_items) > 0)
 			<ul class="flex flex-col">
 				@for($i = 0; $i < count($invoice_items);$i++)
-					<li class="shadow-md bg-white my-2 px-8 py-4" x-data="accordion({{ $invoice_items[$i][0]->id }})">
+					<li class="border-l-4 border-[#4F9298] shadow-md bg-white my-2 px-8 py-4" x-data="accordion({{ $invoice_items[$i][0]->id }})">
 						<h2 class="flex flex-row justify-between items-center font-semibold cursor-pointer" @click="handleClick()">
 							<span style="color:#4F9298">
 									<div class="font-bold">
 {{--										 {{ $invoice_items[$i][0]->invoice_id }}--}}
 										{{ $invoices[$i]->patient_name }}
 										<i class="fa fa-long-arrow-right"></i>
-	{{--									@dd($invoices)--}}
 										<span class="text-xs font-bold ">{{ $invoices[0]->date }} </span>
 									</div>
+								<div>
+									<span class="font-normal text-sm">Total: </span> <span class="text-sm">${{ $invoices[$i]->amount }}</span>
+								</div>
 							</span>
 							<div class="flex items-center gap-2">
 								<span style="color:#4F9298">
 									<div class="font-bold">
 										 Invoice {{ $invoice_items[$i][0]->invoice_id }}
-										
 									</div>
 									<div class="text-xs"></div>
 							</span>

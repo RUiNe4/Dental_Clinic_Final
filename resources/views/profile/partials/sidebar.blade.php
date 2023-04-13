@@ -22,13 +22,13 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="sidebar-menu">
 					<li class="header">MAIN NAVIGATION</li>
-					<li class="treeview">
-						<a href="{{ auth()->user()->acc_type == 'Doctor' ? url('/doctor') : '/admin' }}">
+					<li class="treeview {{ auth()->user()->acc_type == 'Doctor' ? url('/doctor') : 'hidden' }}">
+						<a href="{{ url('/doctor') }}">
 							<i class="fa fa-dashboard"></i> <span>Home</span>
 						</a>
 					</li>
 					@if (auth()->user()->acc_type == 'admin')
-						<x-user-list url="/admin/doctor-list" user-type="Doctor List"/>
+						<x-user-list url="/admin" user-type="Doctor List"/>
 						<x-treatment-item url="/admin/treatment-list" user-type="Treatment Management"/>
 					@else
 						<x-user-list url="/doctor/patient-list"
@@ -59,15 +59,10 @@
 								<a href="{{ auth()->user ()->acc_type == 'Doctor' ? url('/doctor/mailbox') : url ('/admin/mailbox') }}">
 									<i class="fa fa-envelope"></i> <span>Mailbox</span>
 									<span class="label label-primary1 pull-right">
-{{--										{{ $countMail }}--}}
 										{{ auth()->user ()->acc_type == 'Doctor' ?
-						\App\Models\Appointment::where([
-						'appointedDoctor'=>auth()->user ()->name,
-						'status' => 'PENDING'])->count() :
-						\App\Models\Appointment::where([
-							'status' => 'PENDING',
-							'appointedDoctor' => NULL
-])->count() }}
+											\App\Models\Appointment::where([
+												'appointedDoctor'=>auth()->user ()->name, 'status' => 'PENDING'])->count() :
+												\App\Models\Appointment::where([ 'status' => 'PENDING', 'appointedDoctor' => NULL])->count() }}
 									</span>
 								</a>
 							</li>

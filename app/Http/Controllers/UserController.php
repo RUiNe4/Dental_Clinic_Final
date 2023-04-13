@@ -6,6 +6,7 @@
 	use App\Models\Invoice;
 	use App\Models\invoice_items;
 	use App\Models\User;
+	use Carbon\Carbon;
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\Auth;
 	use Illuminate\Support\Facades\DB;
@@ -22,11 +23,19 @@
 					$patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
 					$doctors = User ::all ();
 					$countMail = count ( Appointment ::where ( 'appointedDoctor' , null ) -> get () );
-					$revenue = Invoice ::all () -> sum ( function ( $t ) {
-						return $t -> amount;
-					} );
+					$revenue = Invoice ::where ( 'doctor' , '=' , auth () -> user () -> name ) -> sum ( 'amount' );
 					
-					return view ( 'pages.admin-home' , compact ( 'patients' , 'countMail' , 'doctors' , 'revenue' ) );
+					$invoices = Invoice ::select ( 'amount' , DB::raw ("TIMESTAMP(date) as day") )
+						->where(DB::raw ("DAY(date)"),'<',30)
+						-> orderBy ( 'day' , 'asc' )
+						-> pluck ( 'amount' , 'day' );
+					
+					$labels = $invoices -> keys ();
+					$data = $invoices -> values ();
+
+//					dd($data);
+					
+					return view ( 'pages.admin-home' , compact ( 'patients' , 'countMail' , 'doctors' , 'revenue' , 'labels' , 'data' ) );
 				} else {
 					auth ::logout ();
 					
@@ -132,7 +141,16 @@
 			] )
 				-> paginate ( 6 );
 			
-			return view ( 'pages.patient-list' , compact ( 'sort' , 'patients' , 'doctors' ) );
+			
+			$invoices = Invoice ::select ( 'amount' , DB::raw ("DAY(date) as day") )
+//						->where(DB::raw ("DAY(date)"),'',Carbon::now ())
+				-> orderBy ( 'day' , 'asc' )
+				-> pluck ( 'amount' , 'day' );
+			
+			$labels = $invoices -> keys ();
+			$data = $invoices -> values ();
+			
+			return view ( 'pages.patient-list' , compact ( 'sort' , 'patients' , 'doctors', 'labels', 'data') );
 		}
 		
 		public function search ()
@@ -165,8 +183,15 @@
 						$appointment -> phoneNum = $request[ 'phoneNum' ];
 					}
 					if ( $request[ 'cb' ] == 'check' ) {
-						$this -> mail ( $appointment -> email , 'Using Reschedule from patient info
-					New Date: ' . $request[ 'apntDate' ] );
+						$this -> mail ( $appointment -> email , 'Greetings ' . $appointment -> firstName . ' ' . $appointment -> lastName . '.
+
+Unfortunately your appointed doctor is not available on the time you have requested for an appointment , therefore your appointment has been moved to ' . $request[ 'apntDate' ] . '.
+
+Please let us know if you are able accept the appointment by sending us an email or contact the number below
+098 233 324.
+
+Thank you for booking your appointment with SmilelineClinic!
+ ' );
 					}
 					$appointment -> paid = 0;
 					$appointment -> update ();
@@ -174,7 +199,15 @@
 					return redirect () -> back ();
 				case 'delete':
 					if ( $request[ 'cb' ] == 'check' ) {
-						$this -> mail ( $appointment -> email , 'Using Cancel appointment from patient info' );
+						$this -> mail ( $appointment -> email , 'Greetings ' . $appointment -> firstName . ' ' . $appointment -> lastName . ',
+
+Unfortunately your appointed doctor is not available on the time you have requested for an appointment, therefore your appointment has been declined.
+
+Please let us know if you would like to rebook the appointment by go to our website or contact the number below
+098 233 324.
+
+Thank you for booking your appointment with SmilelineClinic!
+' );
 					}
 					$appointment -> delete ();
 					if ( $appointment -> status == 'PENDING' && \auth () -> user () -> acc_type == 'Doctor' ) {
@@ -185,28 +218,30 @@
 						return redirect ( '/doctor/patient-list' );
 					}
 				case 'paid':
-					return redirect('/create/invoice/'.$appointment->id);
+					return redirect ( '/create/invoice/' . $appointment -> id );
 				default:
 					return abort ( '404' );
 			}
 		}
-		public function invoice_record(){
-//			$doctors = User ::latest () -> paginate ( 6 );
+		
+		public function invoice_record ()
+		{
+			//			$doctors = User ::latest () -> paginate ( 6 );
 			$patients = Appointment ::where ( [
 				'appointedDoctor' => auth () -> user () -> name ,
 				'status' => 'Approve' ,
-				'paid' => 1
-			] ) -> get();
-//			$invoices = Invoice ::where ( 'patient_name' , $appointment -> firstName . ' ' . $appointment -> lastName ) -> orderby ( 'id' , 'desc' ) -> get ();
-			$invoices = Invoice ::where('doctor', auth()->user ()->name)->get();
-			$invoice_items = array ();
+				'paid' => 1 ,
+			] ) -> get ();
+			//			$invoices = Invoice ::where ( 'patient_name' , $appointment -> firstName . ' ' . $appointment -> lastName ) -> orderby ( 'id' , 'desc' ) -> get ();
+			$invoices = Invoice ::where ( 'doctor' , auth () -> user () -> name ) -> get ();
+			$invoice_items = [];
 			
 			foreach ( $invoices as $invoice ) {
 				$invoice_items[] = invoice_items ::where ( 'invoice_id' , $invoice -> id )
 					-> get ();
 			}
 			
-			return view('pages.invoice-record', compact ('patients', 'invoices', 'invoice_items'));
+			return view ( 'pages.invoice-record' , compact ( 'patients' , 'invoices' , 'invoice_items' ) );
 		}
 	}
 	

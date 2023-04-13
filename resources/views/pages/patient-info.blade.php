@@ -49,7 +49,7 @@
 					@if($appointment->paid)
 						<span class="text-green-700">Paid</span>
 					@else
-						<form action="/create/invoice" class="inline-block">
+						<form action="/create/invoice/{{ $appointment->id }}" class="inline-block">
 							<button type="submit" name="patient-id" value="{{ $appointment->id }}" class="text-amber-700 underline">
 								Pending
 							</button>

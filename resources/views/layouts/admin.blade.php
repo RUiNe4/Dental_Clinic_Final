@@ -10,9 +10,9 @@
 		@yield('content')
 	</div>
 </div>
-@include('profile.partials.adminJs')
 @livewireScripts
 </body>
+@include('profile.partials.adminJs')
 
 </html>
 @else

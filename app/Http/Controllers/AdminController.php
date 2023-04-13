@@ -26,7 +26,7 @@
 		
 		public function invoiceView ( Request $request , Appointment $appointment )
 		{
-//			dd($appointment);
+			//			dd($appointment);
 			$treatments = Treatment ::all ();
 			$items = Temp ::all ();
 			$myTime = Carbon ::now ();
@@ -34,14 +34,13 @@
 			$amount = Temp ::all () -> sum ( function ( $t ) {
 				return $t -> price * $t -> qty;
 			} );
-//			$format = date ( 'Y-m-d' );
-//			$myTime = Carbon ::createFromFormat ( 'Y-m-d' , $format )
-//				-> format ( 'Y-m-d' );
+			//			$format = date ( 'Y-m-d' );
+			//			$myTime = Carbon ::createFromFormat ( 'Y-m-d' , $format )
+			//				-> format ( 'Y-m-d' );
 			$patients = Appointment ::where ( 'appointedDoctor' , Auth ::user () -> name ) -> get ();
 			
-			
 			return view ( 'pages.create-invoice' , [
-//				'patients' => $patients ,
+				//				'patients' => $patients ,
 				'appointment' => $appointment ,
 				'treatments' => $treatments ,
 				'items' => $items ,
@@ -55,8 +54,8 @@
 		{
 			$amount = $request -> get ( 'total' );
 			// dd();
-//			$patient = Appointment ::find ( $request -> get ( 'patient_name' ) );
-//			dd($request -> get ( 'patient_name' ));
+			//			$patient = Appointment ::find ( $request -> get ( 'patient_name' ) );
+			//			dd($request -> get ( 'patient_name' ));
 			if ( $amount > 0 ) {
 				DB ::table ( 'invoices' ) -> insert ( [
 					'patient_id' => $appointment -> id ,
@@ -86,7 +85,7 @@
 				self ::clearFromTable ();
 			}
 			
-			return redirect ('doctor/patient-list');
+			return redirect ( 'doctor/patient-list' );
 		}
 		
 		public function addToTempTable ( Request $request , Treatment $treatment )
@@ -169,7 +168,16 @@
 			$appointment -> status = 'Approve';
 			$appointment -> update ();
 			
-			$this -> mail ( $appointment -> email , 'Using Update From patient status' );
+			$this -> mail ( $appointment -> email , 'Greetings ' . $appointment -> firstName . ' ' . $appointment -> lastName . ',
+
+We have confirmed your request for an appointment with Dr. ' . $appointment -> appointedDoctor . '. Your scheduled time with Dr. ChhayS. is at ' . $appointment -> appointmentDate . '.
+
+Please contact us at our phone number : 023 830 830 or reach out to us on facebook for more information.
+
+We appreciate your timely attendance for this appointment!
+
+Thank you for booking your appointment with SmilelineClinic!
+' );
 			
 			return redirect () -> back ();
 		}
@@ -193,7 +201,15 @@
 		
 		public function destroyAppointment ( Appointment $appointment )
 		{
-			$this -> mail ( $appointment -> email , 'Using Decline from patient status' );
+			$this -> mail ( $appointment -> email , 'Greetings ,' . $appointment -> firstName . ' ' . $appointment -> lastName . '
+
+Unfortunately your appointed doctor is not available on the time you have requested for an appointment , therefore your appointment has been declined.
+
+Please let us know if you would like to rebook the appointment by go to our website or contact the number below
+098 233 324.
+
+Thank you for booking your appointment with SmilelineClinic!
+' );
 			if ( auth () -> user () -> acc_type != 'admin' ) {
 				$appointment -> delete ();
 				
@@ -318,7 +334,7 @@
 				'status' => 'PENDING' ,
 			] ) -> count ();
 			
-			return view ( 'pages.patient-list' , compact ( 'sort', 'doctorMail' , 'countMail' , 'patients' , 'doctors' ) );
+			return view ( 'pages.patient-list' , compact ( 'sort' , 'doctorMail' , 'countMail' , 'patients' , 'doctors' ) );
 		}
 		
 		public function myMail ()
@@ -366,6 +382,6 @@
 				$patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
 			}
 			
-			return view ( 'pages.patient-list' , compact ( 'sort', 'countMail' , 'patients' , 'doctors' ) );
+			return view ( 'pages.patient-list' , compact ( 'sort' , 'countMail' , 'patients' , 'doctors' ) );
 		}
 	}

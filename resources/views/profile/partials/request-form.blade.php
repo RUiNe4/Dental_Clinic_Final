@@ -14,7 +14,7 @@
         font-size: 12px;
     }
 </style>
-<form class="p-3 flex flex-col gap-2 items-center" action="" method="post">
+<form class="p-3 flex flex-col gap-2 items-center" action="/appointment/create" method="post">
 	<div style="color: #4F9298" class="text-2xl">
 		<x-form-title title="Book Appointment"/>
 	</div>
