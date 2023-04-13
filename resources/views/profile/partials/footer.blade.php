@@ -84,10 +84,7 @@
                         <a href="{{ url('/service') }}" class="hover:underline">Services</a>
                     </li>
                     <li class="mb-4">
-                        <a href="{{ url('/contact') }}" class="hover:underline">Contact</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="{{ url('/community') }}" class="hover:underline">Community</a>
+                        <a href="{{ url('/our-doctor') }}" class="hover:underline">Our Doctors</a>
                     </li>
                 </ul>
             </div>
