@@ -6,14 +6,15 @@
 				<i class="pull-left fa fa-users dollar2 icon-rounded"></i>
 				<div class="stats">
 					<h5>
-						<strong>{{ \App\Models\Appointment::where(['appointedDoctor' => auth()->user ()->name, 'status' => 'PENDING'])->count() }}</strong>
+						<strong>{{ \App\Models\Appointment::where(['appointedDoctor' => auth()->user ()->name, 'status' => 'Approve'])->count() }}</strong>
+
 					</h5>
 					<span>Pending Patients</span>
 				</div>
 			</a>
 		</div>
 	</div>
-	
+
 	<div class="col-md-3 widget widget1">
 		<div class="r3_counter_box">
 			<i class="pull-left fa fa-dollar icon-rounded"></i>
@@ -23,7 +24,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<canvas id="myChart" height="100px"></canvas>
 	@include('profile.partials.revenue-chart')
 

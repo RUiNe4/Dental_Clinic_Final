@@ -32,11 +32,11 @@
 					<div class="right-section text-white">
 						<a href="/admin/doctor-list/{{ $doctor->id }}">
 							<button
-								class="bg-green-400 text-sm px-5 py-1 rounded-md mr-2 mb-2">
+								class="bg-[#E9870F] text-sm px-5 py-1 rounded-md mr-2 mb-2">
 								Edit
 							</button>
 						</a>
-						
+
 						<form action="/admin/doctor-list/{{ $doctor->id }}" method="POST">
 							@csrf
 							@method('DELETE')
@@ -54,7 +54,7 @@
 			<div class="mt-6">
 				{{ $doctors->links() }}
 			</div>
-		
+
 		</div>
 	</main>
 @endsection

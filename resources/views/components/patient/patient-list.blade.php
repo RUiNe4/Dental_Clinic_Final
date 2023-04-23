@@ -3,7 +3,7 @@
 		 class="flex items-center justify-start w-full px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800">
 		<div class="flex items-center justify-between mr-3">
 			<div
-				class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+				class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full bg-[#4F9298]">
 				<span class="font-medium text-gray-600 dark:text-gray-300">
 					{{ $patient->firstName[0].$patient->lastName[0] }}
 				</span>

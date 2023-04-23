@@ -44,6 +44,7 @@
         Route::get('/admin/mailbox/{user}', 'doctorMail');
         // show doctor info
         Route::get('/admin/doctor-list/{user}', 'show');
+        Route::patch('/admin/doctor-list/{user}/update', 'updateDoctor');
         // remove doctor account
         Route::delete('/admin/doctor-list/{user}', 'destroyUser');
         // change password

@@ -46,8 +46,8 @@
 					<p class="p-3 text-gray-900">
 						{{ $patient->message }}
 					</p>
-					
-					<form action="/appointment/{{ $patient->id }}/change" wire:submit.prevent="">
+
+					<form action="/appointment/{{ $patient->id }}/change">
 						<div class="p-6 space-y-6">
 							<x-date-picker :patient="$patient"/>
 						</div>
@@ -74,7 +74,7 @@
 									PAID
 								</button>
 							@endif
-							
+
 							<x-checkbox :patient="$patient"/>
 						</div>
 					</form>
