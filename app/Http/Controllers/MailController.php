@@ -17,9 +17,7 @@ class MailController extends Controller
 
         try {
             Mail::to($email)->send(new MailNotify($data));
-
             return redirect()->back();
-            //				return;
         } catch (Exception $th) {
             return redirect()->back()->with('message', 'Failed to Send Mail');
         }

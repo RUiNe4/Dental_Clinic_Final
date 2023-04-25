@@ -17,11 +17,11 @@ class InvoiceFactory extends Factory
     public function definition()
     {
         return [
-					'patient_id' => fake ()->numberBetween (1,10),
-					'patient_name' => fake()->name(),
-					'amount' => fake()->numberBetween (10, 999),
-					'doctor' => 'Sunchhay Khoun',
-					'date' => fake()->date(),
+            'patient_id' => fake()->numberBetween(1, 10),
+            'patient_name' => fake()->name(),
+            'amount' => fake()->numberBetween(10, 999),
+            'doctor' => 'Sunchhay Khoun',
+            'date' => fake()->date(),
         ];
     }
 }
