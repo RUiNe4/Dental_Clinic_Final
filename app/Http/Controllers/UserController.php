@@ -23,7 +23,7 @@
                     $patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
                     $doctors = User ::all ();
                     $countMail = count ( Appointment ::where ( 'appointedDoctor' , null ) -> get () );
-                    $revenue = Invoice ::where ( 'doctor' , '=' , auth () -> user () -> name ) -> sum ( 'amount' );
+                    $revenue = Invoice :: sum ( 'amount' );
 
                     $invoices = Invoice ::select ( 'amount' , DB ::raw ( 'TIMESTAMP(date) as day' ) )
                         -> where ( DB ::raw ( 'DAY(date)' ) , '<' , 30 )
@@ -60,13 +60,14 @@
                 'email' => [ 'required' , 'email' , Rule ::unique ( 'users' , 'email' ) ] ,
                 'password' => 'required|confirmed|min:6' ,
                 'title' => 'required' ,
-                'specialist' => 'required' ,
-                'description' => 'required' ,
-                'work_experience' => 'required' ,
+//                'specialist' => 'required' ,
+//                'description' => 'required' ,
+//                'work_experience' => 'required' ,
             ] );
             $formField[ 'acc_type' ] = 'Doctor';
             if ( $request -> hasFile ( 'photo' ) ) {
                 $formField[ 'photo' ] = $request -> file ( 'photo' ) -> store ( 'photos' , 'public' );
+
             }
             //Hash Password
             $formField[ 'password' ] = bcrypt ( $formField[ 'password' ] );
@@ -74,7 +75,7 @@
             $user = User ::create ( $formField );
 
             //Login
-            return redirect ( '/' ) -> with ( 'message' , 'User created and logged in' );
+            return redirect ('/admin') -> with ( 'message' , 'User created and logged in' );
         }
 
         public function login ( Request $request )

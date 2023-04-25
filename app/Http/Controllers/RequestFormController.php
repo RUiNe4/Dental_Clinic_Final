@@ -38,6 +38,6 @@ namespace App\Http\Controllers;
                 'Thank you very much '.\request('fName').' '.\request('lName').' for booking an Appointment with us.
 We will try to get through to you once we get words from our Dentists in 1-2 business days.');
 
-            return redirect()->back();
+            return back()->withErrors (['message' => 'Appointment Booked Successfully']);
         }
     }

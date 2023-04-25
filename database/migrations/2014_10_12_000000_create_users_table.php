@@ -20,9 +20,9 @@
                 $table->string('email')->unique();
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');
-                $table->string('specialist');
-                $table->text('description');
-                $table->text('work_experience');
+                $table->string('specialist')->nullable ();
+                $table->text('description')->nullable ();
+                $table->text('work_experience')->nullable ();
                 $table->string('acc_type');
                 $table->string('photo')->nullable();
                 $table->integer('patient_count')->default(0);

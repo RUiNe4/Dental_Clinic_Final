@@ -46,7 +46,7 @@
 						 name="birthday" type="text" class="border-none text-gray-900 rounded-md block w-full pl-10 p-2.5"
 						 placeholder="Date of Birth">
 		</div>
-		
+
 		<div class="relative" style="width: 100%">
 			<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none hover:cursor-pointer">
 				<svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="#4F9298" viewBox="0 0 20 20"
@@ -66,7 +66,11 @@
 							id=""
 							cols="30" rows="5" placeholder="Leave a Message :)"></textarea>
 	</div>
+    @error('message')
+        <p class="text-green-500 text-sm">Success</p>
+    @enderror
 	<div>
 		<x-confirm-button text="Book Now"/>
 	</div>
+
 </form>

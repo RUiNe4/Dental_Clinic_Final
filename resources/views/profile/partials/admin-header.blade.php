@@ -10,7 +10,7 @@
 		<div class="clearfix"></div>
 	</div>
 	<div class="header-right">
-		
+
 		<!--search-box-->
 		<div class="search-box">
 			<form
@@ -27,13 +27,15 @@
 			</form>
 		</div>
 		<!--//end-search-box-->
-		
+
 		<div class="profile_details">
 			<ul>
 				<li class="dropdown profile_details_drop">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 						<div class="profile_img">
-							<span class="prfil-img"><img src="{{ asset('images/2.jpg') }}" alt=""> </span>
+							<span class="prfil-img">
+                                <img style="border-radius: 50%; width:50px; height: 50px; object-fit: cover" src="{{ auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset ('assets/image/1.jpg') }}" alt="">
+                            </span>
 							<div class="user-name">
 								@auth()
 									<p>{{ auth()->user()->name }}</p>
@@ -46,9 +48,6 @@
 						</div>
 					</a>
 					<ul class="dropdown-menu drp-mnu">
-						{{--						<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>--}}
-						<li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-						<li><a href="#"><i class="fa fa-suitcase"></i> Profile</a></li>
 						<li>
 							<a href="#">
 								<form action="/logout" method="POST" class="inline">
