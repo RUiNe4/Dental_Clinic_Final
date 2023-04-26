@@ -80,14 +80,16 @@
                     </div>
                 </form>
             </div>
-
-
             <div class="">
                 @include('profile.partials.popup-invoice')
             </div>
         </div>
+
         <div
-            class="relative w-full overflow-y-scroll bg-white border border-gray-100 bg-[#E5FDFF] h-96">
+            class="{{ $appointment->where([
+        'status' => 'Approve',
+        'appointedDoctor' => auth () -> user() -> name
+        ])->count() < 2 ? 'hidden' : ''}} relative w-full overflow-y-scroll border border-gray-100 bg-[#E5FDFF] h-96">
             <ul class="border-l-4 border-[#4F9298]">
                 @foreach(auth()->user()->acc_type == "admin" ? \App\Models\Appointment::latest()->get() : $patients as $patient)
                     @if($patient->id != $appointment->id)
@@ -97,5 +99,4 @@
             </ul>
         </div>
     </div>
-
 @endsection

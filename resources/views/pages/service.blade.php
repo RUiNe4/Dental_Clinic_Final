@@ -2,7 +2,7 @@
 @section('title', 'ServiceSeeder')
 @section('content')
 	<main class="w-8/10 h-screen m-auto px-48">
-		<div class=" text-center">
+		<div class="{{ $services->count() == 0 ? 'hidden' : '' }} text-center">
 			<h1 style="color: black; font-size: 50px;">Our Services</h1>
 			<p style="color: black;">Smile Line provides the best quality to all the customers !</p>
 		</div>
