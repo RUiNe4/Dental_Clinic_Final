@@ -331,7 +331,7 @@ Thank you for booking your appointment with SmilelineClinic!
                 'appointedDoctor' => $doctor ,
                 'status' => 'PENDING' ,
             ] ) -> paginate ( 6 );
-            $doctor = User::where('name', $doctor)->get();
+            $doctor = User ::where ( 'name' , $doctor ) -> get ();
             $sort = \request ( 'sort' , 'asc' );
             $doctors = User ::all ();
 
@@ -342,7 +342,7 @@ Thank you for booking your appointment with SmilelineClinic!
                 'status' => 'PENDING' ,
             ] ) -> count ();
 
-            return view ( 'pages.patient-list' , compact ( 'sort' , 'doctorMail' , 'countMail' , 'patients' , 'doctors', 'doctor' ) );
+            return view ( 'pages.patient-list' , compact ( 'sort' , 'doctorMail' , 'countMail' , 'patients' , 'doctors' , 'doctor' ) );
         }
 
         public function myMail ()
@@ -389,7 +389,7 @@ Thank you for booking your appointment with SmilelineClinic!
                 $patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
             }
 
-            return view ( 'pages.patient-list' , compact ('sort' , 'countMail' , 'patients' , 'doctors' ) );
+            return view ( 'pages.patient-list' , compact ( 'sort' , 'countMail' , 'patients' , 'doctors' ) );
         }
 
         public function updateDoctor ( User $user , Request $request )
@@ -414,6 +414,6 @@ Thank you for booking your appointment with SmilelineClinic!
 
             $user -> update ();
 
-            return redirect () -> back ();
+            return back () -> withErrors ( [ 'updateMessage' => 'Successfully Update ' . $user -> title . ' ' . $user -> name . ' info.' ] );
         }
     }

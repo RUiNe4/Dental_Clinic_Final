@@ -3,7 +3,7 @@
     <div class="flex">
         <div>
             <form style="display: grid; grid-template-columns: 150px 400px; column-gap: 0.5rem; row-gap: 0.75rem"
-                  action="/admin/doctor-list/{{ $user->id }}/update"
+                  action="/admin/doctor-list/{{ $user->id }}/update" id="formUpdateMessage"
                   class="w-fit px-6 py-3" method="POST">
                 @csrf
                 @method('PATCH')
@@ -26,7 +26,7 @@
                 <label for="acc_type">Account type</label>
                 <input onkeydown="submitForm();" name="acc_type" class="" type="text" value="{{ $user->acc_type }}">
                 <div></div> {{-- Empty Div for grid --}}
-                <div class="flex gap-x-2 justify-end">
+                <div class="flex gap-x-2 items-center justify-end">
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                             class="block font-bold text-white bg-[#EE890C] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                             type="button">
@@ -57,7 +57,7 @@
                                     </svg>
                                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure
                                         you want to update {{ $user->title.' '.$user->name }} information?</h3>
-                                    <button data-modal-hide="popup-modal" type="submit"
+                                    <button onclick="updateMessage()" data-modal-hide="popup-modal" type="submit"
                                             class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                                         Yes, I'm sure
                                     </button>
@@ -69,15 +69,13 @@
                             </div>
                         </div>
                     </div>
-
-
                     <a href="/admin/doctor-list/{{ $user->id }}/password"
                        class="bg-[#6D4AFF] w-56 text-white font-bold rounded-md p-2 text-center items-stretch">
                         Change Password
                     </a>
-                    <p class="js-message"></p>
                 </div>
             </form>
+            <p class="js-update-message text-right mr-6 text-green-600 font-bold text-xs"></p>
         </div>
         <div class="flex-1 border-l-2 border-[#629AA9]">
             <table class="w-full text-sm text-left text-gray-500">
@@ -132,8 +130,12 @@
     @endif
     <script>
         function updateMessage() {
-            const messageElement = document.querySelector('.js-message');
-            messageElement.innerHTML = 'Finished';
+            event.preventDefault();
+            setTimeout(function () {
+                document.getElementById("formUpdateMessage").submit();
+                document.getElementById(".js-update-message").innerHTML = "";
+            }, 3000);
+            document.querySelector(".js-update-message").innerHTML = `Successfully Update {{ $user -> title }} {{ $user -> name }} info.`;
         }
 
         function submitForm() {
