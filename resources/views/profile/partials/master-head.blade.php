@@ -4,6 +4,7 @@
 				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Smile Line - @yield('title')</title>
+    <link rel="icon" href={{asset('assets/image/logo.png')}} type="image/x-icon">
 	{{--	Tailwind css--}}
 	@vite('resources/css/app.css')
 	{{--	flowbite css--}}
