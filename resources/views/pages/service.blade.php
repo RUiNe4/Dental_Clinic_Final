@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'ServiceSeeder')
+@section('title', 'Services')
 @section('content')
 	<main class="w-8/10 h-screen m-auto px-48">
 		<div class="{{ $services->count() == 0 ? 'hidden' : '' }} text-center">
