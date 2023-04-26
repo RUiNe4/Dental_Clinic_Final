@@ -24,7 +24,7 @@
                 <textarea onkeydown="submitForm();" name="work_experience" class="p-2 "
                           rows=4>{{ $user->work_experience }}</textarea>
                 <label for="acc_type">Account type</label>
-                <input onkeydown="submitForm();" name="acc_type" class="" type="text" value="{{ $user->acc_type }}">
+                <input disabled name="acc_type" class="" type="text" value="{{ $user->acc_type }}">
                 <div></div> {{-- Empty Div for grid --}}
                 <div class="flex gap-x-2 items-center justify-end">
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
