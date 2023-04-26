@@ -130,7 +130,12 @@
 
 </style>
 @section('content')
-	<x-header title="{{ $user->title }} {{ $user->name }}"/>
+	<x-header>
+        @error('message')
+        <p class="text-green-500 text-sm">Appointment has been successfully booked</p>
+        @enderror
+        {{ $user->title }} {{ $user->name }}
+    </x-header>
 	<main style="padding: 0 250px;" class="">
 		<div class="container2">
 			<div class="left-col profile">
@@ -154,11 +159,13 @@
 		<div id="makeAppointment"></div>
 		<div class="container3 p-5">
 			<div class="flex-1">
-				@include('profile.partials.request-form')
+                <form class="p-3 flex flex-col gap-2 items-center" action="/our-doctor/{{ $user->id }}" method="post">
+                    @include('profile.partials.request-form')
+                </form>
 			</div>
 		</div>
 	</main>
-	
+
 	{{--	</section>--}}
 @endsection
 

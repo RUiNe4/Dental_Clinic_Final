@@ -16,14 +16,13 @@
 	</style>
 	<!-- Container for demo purpose -->
 	<div class="container py-12 px-6 mx-auto">
-		
+
 		<!-- Meet our Doctor Title -->
 		<section class="mb-32 text-gray-800 text-center">
 			<h2 class="text-3xl font-bold mb-32">Meet our Dentists</h2>
 		</section>
 		<!-- Meet our Doctor Title -->
-		
-		<!-- Section: Design Block -->
+
 		<section class="mb-32 text-gray-800 text-center">
 			@if (count($doctors) == 0)
 				<label> No Doctor</label>
@@ -35,5 +34,4 @@
 			</div>
 		</section>
 	</div>
-	<!-- Container for demo purpose -->
 @endsection

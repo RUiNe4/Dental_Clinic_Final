@@ -17,7 +17,7 @@ namespace App\Http\Controllers;
 
         public function store(User $user)
         {
-            if ($user->name != null) {
+            if ($user != null) {
                 $user->patient_count++;
                 $user->update();
             }
@@ -31,8 +31,6 @@ namespace App\Http\Controllers;
                 'appointmentDate' => \request('apntDate'),
                 'message' => \request('message'),
             ]);
-
-            //			dd(request ('email'));
 
             $this->mail(request('email'),
                 'Thank you very much '.\request('fName').' '.\request('lName').' for booking an Appointment with us.
