@@ -414,6 +414,6 @@ Thank you for booking your appointment with SmilelineClinic!
 
             $user -> update ();
 
-            return back () -> withErrors ( [ 'updateMessage' => 'Successfully Update ' . $user -> title . ' ' . $user -> name . ' info.' ] );
+            return back ();
         }
     }
