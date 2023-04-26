@@ -13,7 +13,7 @@
 					@endif
 				@endforeach
 			</select>
-			
+
 			<button type="submit" class="text-white bg-green-400 text-sm px-2 py-1 rounded-md mr-2 mb-2">
 				Accept
 			</button>

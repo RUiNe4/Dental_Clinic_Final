@@ -410,7 +410,6 @@ Thank you for booking your appointment with SmilelineClinic!
             $user -> specialist = $request[ 'specialist' ];
             $user -> description = $request[ 'description' ];
             $user -> work_experience = $request[ 'work_experience' ];
-            $user -> acc_type = $request[ 'acc_type' ];
 
             $user -> update ();
 

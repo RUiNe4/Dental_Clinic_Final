@@ -25,7 +25,7 @@
                     <label for="price" class="inline-block text-lg mb-2">
                         Price ($)
                     </label>
-                    <input type="price" class="border border-gray-200 rounded p-2 w-full" name="price"
+                    <input type="number" class="border border-gray-200 rounded p-2 w-full" name="price"
                            value="{{old('price')}}" placeholder="Enter price"/>
                 </div>
                 @error('price')
