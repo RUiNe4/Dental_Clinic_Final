@@ -56,19 +56,19 @@
             <div class="py-9 px-4">
                 <h2 class="mb-6 text-md font-semibold text-gray-900 uppercase dark:text-white">Our Certificate</h2>
                 <div class="hover:underline md items-center flex sm:flex-wrap">
-                    <a href="index.html" class="py-4">
-                        <img src="{{ asset ('assets/image/logo.png') }}" class="h-14 w-14 mr-6 sm:mr-4 rounded-full" alt="avarta" />
+                    <a href="#" class="py-4">
+                        <img src="{{ asset ('assets/image/logo.png') }}" class="h-14 w-14 mr-6 sm:mr-4 rounded-full" alt="avatar" />
                     </a>
-                    <a href="index.html" class="py-4">
-                        <img src="{{ asset ('assets/image/logo.png') }}" class=" h-14 w-14 mr-6 sm:mr-4 rounded-full" alt="avarta" />
+                    <a href="#" class="py-4">
+                        <img src="{{ asset ('assets/image/logo.png') }}" class=" h-14 w-14 mr-6 sm:mr-4 rounded-full" alt="avatar" />
                     </a>
                 </div>
                 <div class="hover:underlinemd items-center flex sm:flex-wrap ">
-                    <a href="index.html" class="py-4">
-                        <img src="{{ asset ('assets/image/logo.png') }}" class="h-14 w-14 mr-6 sm:mr-4 rounded-full" alt="avarta" />
+                    <a href="#" class="py-4">
+                        <img src="{{ asset ('assets/image/logo.png') }}" class="h-14 w-14 mr-6 sm:mr-4 rounded-full" alt="avatar" />
                     </a>
-                    <a href="index.html" class="py-4">
-                        <img src="{{ asset ('assets/image/logo.png') }}" class=" h-14 w-14 sm:mr-4 rounded-full" alt="avarta" />
+                    <a href="#" class="py-4">
+                        <img src="{{ asset ('assets/image/logo.png') }}" class=" h-14 w-14 sm:mr-4 rounded-full" alt="avatar" />
                     </a>
                 </div>
             </div>
