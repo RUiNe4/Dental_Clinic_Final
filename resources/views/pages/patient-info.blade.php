@@ -24,24 +24,25 @@
                 <div class="mb-3 text-xl">Date of Birth:
                     {{ $appointment->birthday }}
                 </div>
-                <hr class="mb-3 border-black">
-                <div class="mb-3 text-xl">Appointment Count:
-                    {{ count($invoices) }}
-                </div>
-
-                <form action="/create/invoice/{{ $appointment->id }}">
-                    <div class="mb-3 text-xl">Payment Status:
-                        @if($appointment->paid)
-                            <span class="text-green-700">Paid</span>
-                        @else
-                            @csrf
-                            <button type="submit" name="patient-id" value="paid"
-                                    class="text-amber-700 underline">
-                                Pending
-                            </button>
-                        @endif
+                @if(auth ()->user ()->acc_type != "admin")
+                    <hr class="mb-3 border-black">
+                    <div class="mb-3 text-xl">Appointment Count:
+                        {{ count($invoices) }}
                     </div>
-                </form>
+                    <form action="/create/invoice/{{ $appointment->id }}">
+                        <div class="mb-3 text-xl">Payment Status:
+                            @if($appointment->paid)
+                                <span class="text-green-700">Paid</span>
+                            @else
+                                @csrf
+                                <button type="submit" name="patient-id" value="paid"
+                                        class="text-amber-700 underline">
+                                    Pending
+                                </button>
+                            @endif
+                        </div>
+                    </form>
+                @endif
                 <hr class="mb-3 border-black">
                 <form action="/appointment/{{ $appointment->id }}/change">
                     <div class="mb-3 text-xl">
@@ -86,7 +87,6 @@
             </div>
         </div>
         <div
-            {{--            dark:bg-gray-700 dark:border-gray-600--}}
             class="relative w-full overflow-y-scroll bg-white border border-gray-100 bg-[#E5FDFF] h-96">
             <ul class="border-l-4 border-[#4F9298]">
                 @foreach(auth()->user()->acc_type == "admin" ? \App\Models\Appointment::latest()->get() : $patients as $patient)

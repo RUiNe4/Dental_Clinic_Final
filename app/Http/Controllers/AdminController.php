@@ -27,7 +27,6 @@
 
         public function invoiceView ( Request $request , Appointment $appointment )
         {
-            //			dd($appointment);
             $treatments = Treatment ::all ();
             $items = Temp ::all ();
             $myTime = Carbon ::now ();
@@ -35,9 +34,6 @@
             $amount = Temp ::all () -> sum ( function ( $t ) {
                 return $t -> price * $t -> qty;
             } );
-            //			$format = date ( 'Y-m-d' );
-            //			$myTime = Carbon ::createFromFormat ( 'Y-m-d' , $format )
-            //				-> format ( 'Y-m-d' );
             $patients = Appointment ::where ( 'appointedDoctor' , Auth ::user () -> name ) -> get ();
 
             return view ( 'pages.create-invoice' , [
@@ -54,9 +50,6 @@
         public function generateReceipt ( Request $request , Appointment $appointment , $doctor )
         {
             $amount = $request -> get ( 'total' );
-            // dd();
-            //			$patient = Appointment ::find ( $request -> get ( 'patient_name' ) );
-            //			dd($request -> get ( 'patient_name' ));
             if ( $amount > 0 ) {
                 DB ::table ( 'invoices' ) -> insert ( [
                     'patient_id' => $appointment -> id ,
@@ -76,12 +69,6 @@
                     $invoice_item -> invoice_id = $invoice_id;
                     $invoice_item -> update ();
                 }
-
-                //			if($invoice_items){
-                //				$invoice_items->invoice_id = $invoice_id;
-                //			}
-
-                //			dd($invoice_items);
 
                 self ::clearFromTable ();
             }
@@ -169,7 +156,7 @@
             $appointment -> status = 'Approve';
             $appointment -> update ();
 
-            // Message Body// Message Body
+            // Message Body
             $this -> mail ( $appointment -> email , 'Greetings ' . $appointment -> firstName . ' ' . $appointment -> lastName . ',
 
 We have confirmed your request for an appointment with Dr. ' . $appointment -> appointedDoctor . '. Your scheduled time with Dr. ChhayS. is at ' . $appointment -> appointmentDate . '.
@@ -268,7 +255,6 @@ Thank you for booking your appointment with SmilelineClinic!
                 $user -> update ( [ 'password' => bcrypt ( $request[ 'password' ] ) ] );
                 return redirect ( '/admin/doctor-list/' . $user -> id );
             } else {
-//                return redirect('/admin/doctor-list/'.$user->id.'/password')->withErrors ( [ 'email' => 'Invalid Credentials' ] ) -> onlyInput ( 'email' );
                 return redirect () -> back () -> withErrors ( [ 'oldPassword' => 'Invalid Credentials' ] ) -> onlyInput ( 'oldPassword' );
             }
         }
@@ -341,21 +327,22 @@ Thank you for booking your appointment with SmilelineClinic!
 
         public function doctorMail ( $doctor )
         {
-            $sort = \request ( 'sort' , 'asc' );
-            $doctors = User ::all ();
             $patients = Appointment ::where ( [
                 'appointedDoctor' => $doctor ,
                 'status' => 'PENDING' ,
-            ] )
-                -> paginate ( 6 );
+            ] ) -> paginate ( 6 );
+            $doctor = User::where('name', $doctor)->get();
+            $sort = \request ( 'sort' , 'asc' );
+            $doctors = User ::all ();
+
             $doctorMail = count ( $patients );
-            //			$countMail = Appointment ::where ( 'appointedDoctor' , NULL ) -> count ();
+
             $countMail = Appointment ::where ( [
                 'appointedDoctor' => null ,
                 'status' => 'PENDING' ,
             ] ) -> count ();
 
-            return view ( 'pages.patient-list' , compact ( 'sort' , 'doctorMail' , 'countMail' , 'patients' , 'doctors' ) );
+            return view ( 'pages.patient-list' , compact ( 'sort' , 'doctorMail' , 'countMail' , 'patients' , 'doctors', 'doctor' ) );
         }
 
         public function myMail ()
@@ -382,7 +369,6 @@ Thank you for booking your appointment with SmilelineClinic!
             $countMail = Appointment ::where ( 'appointedDoctor' , null ) -> count ();
             $doctors = User ::all ();
             $invoices = Invoice ::where ( 'doctor' , $user -> name ) -> get ();
-            //			dd($user);
             return view ( 'pages.edit-doctor' , compact ( 'countMail' , 'user' , 'doctors' , 'invoices' ) );
         }
 
@@ -403,7 +389,7 @@ Thank you for booking your appointment with SmilelineClinic!
                 $patients = Appointment ::where ( 'appointedDoctor' , auth () -> user () -> name ) -> paginate ( 6 );
             }
 
-            return view ( 'pages.patient-list' , compact ( 'sort' , 'countMail' , 'patients' , 'doctors' ) );
+            return view ( 'pages.patient-list' , compact ('sort' , 'countMail' , 'patients' , 'doctors' ) );
         }
 
         public function updateDoctor ( User $user , Request $request )

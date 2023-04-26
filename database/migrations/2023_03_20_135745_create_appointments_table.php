@@ -21,9 +21,9 @@
                 $table->string('email');
                 $table->string('appointedDoctor')->nullable();
                 $table->string('status')->default('PENDING');
-                $table->date('birthday')->nullable();
-                $table->date('appointmentDate')->nullable();
-                $table->text('message')->nullable();
+                $table->date('birthday')->nullable ();
+                $table->date('appointmentDate');
+                $table->text('message')->nullable ();
                 // $table -> integer ( 'invoice_id' ) -> nullable ();
                 $table->boolean('paid')->default(false);
                 $table->timestamps();

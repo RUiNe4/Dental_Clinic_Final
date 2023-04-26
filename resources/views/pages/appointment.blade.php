@@ -3,7 +3,14 @@
 @section('headerName', 'Book an Appointment')
 @section('content')
     <section class="mt-3">
-        <x-header title="Make an Appointment"/>
+        <x-header>
+            Make an Appointment
+            @error('message')
+                <p class="text-green-500 font-bold text-sm">
+                    Appointment Successfully Booked
+                </p>
+            @enderror
+        </x-header>
     </section>
     {{--	default view--}}
     <main class="flex md:flex-row lg:flex-row xl:flex-row mt-3 md:px-5 max-sm:flex-col">
