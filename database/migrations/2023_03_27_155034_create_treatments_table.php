@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('treatment_name')->unique;
             $table->double('price');
+            $table->longText('description');
             $table->timestamps();
         });
     }
