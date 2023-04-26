@@ -159,7 +159,7 @@
             // Message Body
             $this -> mail ( $appointment -> email , 'Greetings ' . $appointment -> firstName . ' ' . $appointment -> lastName . ',
 
-We have confirmed your request for an appointment with Dr. ' . $appointment -> appointedDoctor . '. Your scheduled time with Dr. ChhayS. is at ' . $appointment -> appointmentDate . '.
+We have confirmed your request for an appointment with Dr. ' . $appointment -> appointedDoctor . '. Your scheduled time with '. $appointment->appointedDoctor.' is at ' . $appointment -> appointmentDate . '.
 
 Please contact us at our phone number : 023 830 830 or reach out to us on facebook for more information.
 

@@ -77,6 +77,10 @@
                     </li>
                 @endfor
             </ul>
+        @else
+            <div>
+                No Invoice Records yet
+            </div>
         @endif
     </div>
 </div>

@@ -178,6 +178,7 @@
         {
             switch ( $request[ 'res' ] ) {
                 case 'reschedule':
+                    $appointment->status = 'Approve';
                     $appointment -> appointmentDate = $request[ 'apntDate' ];
                     if ( $request[ 'phoneNum' ] != null ) {
                         $appointment -> phoneNum = $request[ 'phoneNum' ];

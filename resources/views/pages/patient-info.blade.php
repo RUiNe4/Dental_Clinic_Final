@@ -2,10 +2,15 @@
 @section('content')
     <x-header>
         {{ $appointment->firstName.' '.$appointment->lastName }}
+        <div class="text-sm flex gap-x-1 items-center">
+        <span class="font-bold ">Msg</span><i class="fa fa-arrow-right"></i>
+            <span class="font-normal">
+                {{ $appointment->message ?? 'No message left by '.$appointment->firstName.' '.$appointment->lastName }}
+            </span>
+        </div>
     </x-header>
     <div class="flex p-2 gap-x-3">
         <div class="w-full">
-
             <div style="font-family: monospace"
                  class="border-[#4F9298] bg-[#E5FDFF] text-[#222D32] rounded-2xl justify-center items-center p-5">
                 <div class="mb-3 text-xl">Patient No: {{ $appointment->id }}</div>
